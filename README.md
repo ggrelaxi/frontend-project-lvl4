@@ -1,2 +1,3 @@
-### Hexlet tests and linter status:
-[![Actions Status](https://github.com/ggrelaxi/frontend-project-lvl4/workflows/hexlet-check/badge.svg)](https://github.com/ggrelaxi/frontend-project-lvl4/actions)
+### Final project - online chat
+
+> You can see the project, at this [link](https://frontend-project-lvl4-production-eac2.up.railway.app/)
