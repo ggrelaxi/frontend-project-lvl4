@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import { NotFoundContainer } from './not-found.styled';
 
-export const NotFound = () => {
+const NotFound = () => {
     return (
         <NotFoundContainer>
             <div className="notfound">
@@ -19,3 +19,5 @@ export const NotFound = () => {
         </NotFoundContainer>
     );
 };
+
+export default NotFound;

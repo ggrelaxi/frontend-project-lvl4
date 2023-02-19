@@ -1,15 +1,15 @@
 import React from 'react';
-// import { AppLayoutContainer } from './app-container.styled';
 import { Main } from '../main';
 import { Header } from '../header';
 import { Footer } from '../footer';
+import { LayoutContainer } from './layout.styled';
 
-export const AppLayout = () => {
+export const Layout = () => {
     return (
-        <>
+        <LayoutContainer>
             <Header />
             <Main />
             <Footer />
-        </>
+        </LayoutContainer>
     );
 };

@@ -4,6 +4,7 @@ export const HeaderContainer = styled.header`
     height: 60px;
     padding: 10px 50px;
     box-shadow: 0px 0px 4px 1px rgb(0 0 0 / 30%);
+    flex: 0 0;
 
     .header-logo {
         display: block;
