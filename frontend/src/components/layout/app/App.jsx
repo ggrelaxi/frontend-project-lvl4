@@ -2,17 +2,22 @@ import { Suspense, lazy } from 'react';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { AppSpinner } from '../../common/appSpinner';
 import { urls } from '../../../urls';
-import { useAuthContext } from '../../hooks/useAuthContext';
+import { useAuthContext, useIsUserLoggin } from '../../hooks/useAuthContext';
 import { Layout } from '../layout/Layout';
 import { apiClient } from '../../../api/client';
 import { retryTime } from '../../../config';
 
 const LoginPage = lazy(() => import('../../pages/login/Login'));
-const MainPage = lazy(() => import('../../pages/main/Main'));
+const MainPage = lazy(() => import('../../pages/chatPage/ChatPage'));
 const NotFoundPage = lazy(() => import('../../pages/notFound/NotFound'));
 
 const PrivateOutlet = () => {
-    const { isLogin, logout } = useAuthContext();
+    const isLogin = useIsUserLoggin();
+    return isLogin ? <Outlet /> : <Navigate to={urls.loginPage()} />;
+};
+
+export const App = () => {
+    const { logout } = useAuthContext();
 
     const isServerOnline = () => {
         apiClient
@@ -27,10 +32,6 @@ const PrivateOutlet = () => {
 
     isServerOnline();
 
-    return isLogin ? <Outlet /> : <Navigate to={urls.loginPage()} />;
-};
-
-export const App = () => {
     return (
         <Routes>
             <Route path={urls.mainPage()} element={<Layout />}>

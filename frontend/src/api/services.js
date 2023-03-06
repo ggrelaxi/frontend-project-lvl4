@@ -8,4 +8,7 @@ export const services = {
             password,
         });
     },
+    getChatData: async () => {
+        return apiClient.get(urls.getChatData());
+    },
 };

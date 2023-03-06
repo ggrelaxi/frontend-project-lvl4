@@ -27,6 +27,7 @@ const Login = () => {
                 .login(username, password)
                 .then(({ data: { token } }) => {
                     login(token);
+                    console.log(2);
                     return navigate('/');
                 })
                 .catch((e) => {

@@ -6,3 +6,10 @@ export const apiClient = axios.create({
         Accept: '*/*',
     },
 });
+
+apiClient.interceptors.request.use((config) => {
+    const token = window.localStorage.getItem('token');
+    config.headers.Authorization = `Bearer ${token}`;
+
+    return config;
+});

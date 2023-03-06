@@ -17,10 +17,9 @@ const checkIsUserLogin = () => {
 
 export const AuthContextProvider = ({ children }) => {
     const isLogin = checkIsUserLogin();
-
     const contextValue = useMemo(() => {
-        return { login, logout, isLogin };
-    }, [login, logout, isLogin]);
+        return { login, logout, checkIsUserLogin, isLogin };
+    }, [isLogin]);
 
     return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };
