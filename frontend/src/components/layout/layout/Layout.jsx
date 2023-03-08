@@ -1,15 +1,15 @@
 import React from 'react';
-import { Main } from '../main';
-import { Header } from '../header';
-import { Footer } from '../footer';
+import { Main } from '../Main';
+import { Header } from '../Header';
+import { Footer } from '../Footer';
 import { LayoutContainer } from './layout.styled';
 
 export const Layout = () => {
     return (
-        <LayoutContainer>
-            <Header />
+        <LayoutContainer className="bg-light">
+            <Header className="bg-white" />
             <Main />
-            <Footer />
+            <Footer className="bg-white" />
         </LayoutContainer>
     );
 };

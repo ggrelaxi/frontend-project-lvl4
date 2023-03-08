@@ -1,15 +1,15 @@
 import { Suspense, lazy } from 'react';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { AppSpinner } from '../../common/appSpinner';
+import { AppSpinner } from '../../common/AppSpinner';
 import { urls } from '../../../urls';
-import { useAuthContext, useIsUserLoggin } from '../../hooks/useAuthContext';
-import { Layout } from '../layout/Layout';
+import { useAuthContext, useIsUserLoggin } from '../../../hooks/useAuthContext';
+import { Layout } from '../Layout/Layout';
 import { apiClient } from '../../../api/client';
 import { retryTime } from '../../../config';
 
-const LoginPage = lazy(() => import('../../pages/login/Login'));
-const MainPage = lazy(() => import('../../pages/chatPage/ChatPage'));
-const NotFoundPage = lazy(() => import('../../pages/notFound/NotFound'));
+const LoginPage = lazy(() => import('../../pages/Login/Login'));
+const MainPage = lazy(() => import('../../pages/ChatPage/ChatPage'));
+const NotFoundPage = lazy(() => import('../../pages/NotFound/NotFound'));
 
 const PrivateOutlet = () => {
     const isLogin = useIsUserLoggin();

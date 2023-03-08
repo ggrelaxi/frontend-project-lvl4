@@ -1,2 +1,5 @@
-export { apiClient } from './client';
-export { services } from './services';
+import { apiClient } from './client';
+import { AuthServices } from './authServices';
+import { ChatServices } from './chatServices';
+
+export { apiClient, AuthServices, ChatServices };

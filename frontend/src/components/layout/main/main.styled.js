@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const MainContainer = styled.main`
-    flex: 1 0 auto;
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
@@ -9,4 +8,6 @@ export const MainContainer = styled.main`
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    height: 100%;
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const MainContainer = styled.div`
+export const ChatPageContainer = styled.div`
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;

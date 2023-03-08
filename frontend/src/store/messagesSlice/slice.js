@@ -1,15 +1,15 @@
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import { getChatData } from '../commonThunks';
 
-export const messagesAdapter = createEntityAdapter({ isLoading: false });
+export const messagesAdapter = createEntityAdapter();
 
-const initialState = messagesAdapter.getInitialState();
+const initialState = messagesAdapter.getInitialState({ isLoading: false });
 
 const messagesSlice = createSlice({
     name: 'messages',
     initialState,
     reducers: {
-        addMessage: () => {},
+        addMessage: messagesAdapter.addOne,
     },
     extraReducers: (builder) => {
         builder.addCase(getChatData.pending, (state) => {

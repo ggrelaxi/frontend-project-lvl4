@@ -5,14 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import { LoginContainer } from './login.styled';
 import { loginValidationSchema } from './validation-schema';
 import { AuthContext } from '../../../context';
-import { services } from '../../../api';
-import { AppSpinner } from '../../common/appSpinner';
+import { AuthServices } from '../../../api';
+import { AppSpinner } from '../../common/AppSpinner';
 
 const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [authError, setAuthError] = useState(false);
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
+    console.log(AuthServices);
 
     const { values, handleSubmit, handleChange, errors, isValid } = useFormik({
         initialValues: {
@@ -23,8 +24,7 @@ const Login = () => {
         onSubmit: (formValues) => {
             setIsLoading(true);
             const { username, password } = formValues;
-            services
-                .login(username, password)
+            AuthServices.login(username, password)
                 .then(({ data: { token } }) => {
                     login(token);
                     console.log(2);

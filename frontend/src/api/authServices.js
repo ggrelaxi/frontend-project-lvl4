@@ -1,14 +1,15 @@
-import { apiClient } from './index';
+import { apiClient } from './client';
 import { urls } from '../urls';
 
-export const services = {
-    login: async (username, password) => {
+export class AuthServices {
+    static async login(username, password) {
         return apiClient.post(urls.login(), {
             username,
             password,
         });
-    },
-    getChatData: async () => {
+    }
+
+    static async getChatData() {
         return apiClient.get(urls.getChatData());
-    },
-};
+    }
+}
