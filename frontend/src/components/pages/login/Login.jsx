@@ -13,7 +13,6 @@ const Login = () => {
     const [authError, setAuthError] = useState(false);
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
-    console.log(AuthServices);
 
     const { values, handleSubmit, handleChange, errors, isValid } = useFormik({
         initialValues: {
@@ -27,7 +26,6 @@ const Login = () => {
             AuthServices.login(username, password)
                 .then(({ data: { token } }) => {
                     login(token);
-                    console.log(2);
                     return navigate('/');
                 })
                 .catch((e) => {
@@ -40,7 +38,7 @@ const Login = () => {
     return (
         <>
             <LoginContainer>
-                <form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Name</Form.Label>
                         <Form.Control
@@ -74,7 +72,7 @@ const Login = () => {
                     <Button variant="primary" type="submit" disabled={!isValid}>
                         Submit
                     </Button>
-                </form>
+                </Form>
             </LoginContainer>
 
             {isLoading && <AppSpinner />}

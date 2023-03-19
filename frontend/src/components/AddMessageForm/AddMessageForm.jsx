@@ -21,7 +21,7 @@ export const AddMessageForm = () => {
         messageInputRef.current.focus();
     };
     return (
-        <form noValidate className="py-1 border rounded-2 mx-5 my-3" onSubmit={submitHandler}>
+        <form noValidate className="py-1 border rounded-2 mx-5 my-3 mt-auto" onSubmit={submitHandler}>
             <div className="input-group has-validation">
                 <input
                     ref={messageInputRef}
