@@ -13,11 +13,11 @@ const root = ReactDOM.createRoot(document.getElementById('chat'));
 root.render(
     <Provider store={store}>
         <ChatApiContextProvider>
-            <AuthContextProvider>
-                <BrowserRouter>
+            <BrowserRouter>
+                <AuthContextProvider>
                     <App />
-                </BrowserRouter>
-            </AuthContextProvider>
+                </AuthContextProvider>
+            </BrowserRouter>
         </ChatApiContextProvider>
     </Provider>
 );

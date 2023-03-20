@@ -9,6 +9,13 @@ export class AuthServices {
         });
     }
 
+    static async signup(username, password) {
+        return apiClient.post(urls.signup(), {
+            username,
+            password,
+        });
+    }
+
     static async getChatData() {
         return apiClient.get(urls.getChatData());
     }

@@ -1,7 +1,7 @@
 import { Button, Form, Alert } from 'react-bootstrap';
 import { useContext, useState } from 'react';
 import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { LoginContainer } from './login.styled';
 import { loginValidationSchema } from './validation-schema';
 import { AuthContext } from '../../../context';
@@ -11,7 +11,6 @@ import { AppSpinner } from '../../common/AppSpinner';
 const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [authError, setAuthError] = useState(false);
-    const navigate = useNavigate();
     const { login } = useContext(AuthContext);
 
     const { values, handleSubmit, handleChange, errors, isValid } = useFormik({
@@ -26,7 +25,6 @@ const Login = () => {
             AuthServices.login(username, password)
                 .then(({ data: { token } }) => {
                     login(token);
-                    return navigate('/');
                 })
                 .catch((e) => {
                     console.log(e);
@@ -35,48 +33,50 @@ const Login = () => {
                 .finally(() => setIsLoading(false));
         },
     });
+
     return (
-        <>
-            <LoginContainer>
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control
-                            isInvalid={'username' in errors}
-                            value={values.username}
-                            type="text"
-                            name="username"
-                            placeholder="Enter your name"
-                            onChange={handleChange}
-                        />
-                        <Form.Text className="text-muted">Well never share your email with anyone else.</Form.Text>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            isInvalid={'password' in errors}
-                            value={values.password}
-                            type="password"
-                            placeholder="Password"
-                            name="password"
-                            onChange={handleChange}
-                        />
-                    </Form.Group>
+        <LoginContainer>
+            <h1>Вход</h1>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3 position-relative">
+                    <Form.Label>Имя пользователя</Form.Label>
+                    <Form.Control
+                        isInvalid={'username' in errors}
+                        value={values.username}
+                        type="text"
+                        name="username"
+                        placeholder="Enter your name"
+                        onChange={handleChange}
+                    />
+                    <Form.Text className="text-muted">Well never share your email with anyone else.</Form.Text>
+                </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Label>Пароль</Form.Label>
+                    <Form.Control
+                        isInvalid={'password' in errors}
+                        value={values.password}
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        onChange={handleChange}
+                    />
+                </Form.Group>
 
-                    {authError && (
-                        <Alert variant="danger" onClose={() => setAuthError(false)} dismissible>
-                            <p>Ошибка авторизации</p>
-                        </Alert>
-                    )}
+                {authError && (
+                    <Alert variant="danger" onClose={() => setAuthError(false)} dismissible>
+                        <p>Ошибка авторизации</p>
+                    </Alert>
+                )}
 
-                    <Button variant="primary" type="submit" disabled={!isValid}>
-                        Submit
-                    </Button>
-                </Form>
-            </LoginContainer>
-
+                <Button variant="primary" type="submit" disabled={!isValid}>
+                    Submit
+                </Button>
+            </Form>
+            <div className="mt-5">
+                Нет аккаунта? <Link to="/signup">Зарегистрироваться</Link>
+            </div>
             {isLoading && <AppSpinner />}
-        </>
+        </LoginContainer>
     );
 };
 

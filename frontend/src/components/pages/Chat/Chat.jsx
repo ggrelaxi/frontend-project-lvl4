@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Col from 'react-bootstrap/Col';
-import { ChatPageContainer } from './chatPage.styled';
+import { ChatPageContainer } from './chat.styled';
 import { getChatData } from '../../../store/commonThunks/index';
 import { getIsChannelsLoading } from '../../../store/channelsSlice/selectors';
 import { getIsMessagesLoading } from '../../../store/messagesSlice/selectors';

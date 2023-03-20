@@ -7,12 +7,14 @@ import { Layout } from '../Layout/Layout';
 import { apiClient } from '../../../api/client';
 import { retryTime } from '../../../config';
 
+const SignupPage = lazy(() => import('../../pages/Signup/Signup'));
 const LoginPage = lazy(() => import('../../pages/Login/Login'));
-const MainPage = lazy(() => import('../../pages/ChatPage/ChatPage'));
+const MainPage = lazy(() => import('../../pages/Chat/Chat'));
 const NotFoundPage = lazy(() => import('../../pages/NotFound/NotFound'));
 
 const PrivateOutlet = () => {
     const isLogin = useIsUserLoggin();
+
     return isLogin ? <Outlet /> : <Navigate to={urls.loginPage()} />;
 };
 
@@ -45,6 +47,15 @@ export const App = () => {
                         }
                     />
                 </Route>
+                <Route
+                    path={urls.signUpPage()}
+                    element={
+                        <Suspense fallback={<AppSpinner />}>
+                            <SignupPage />
+                        </Suspense>
+                    }
+                />
+
                 <Route
                     path={urls.loginPage()}
                     element={
