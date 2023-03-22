@@ -21,15 +21,18 @@ export const ChatApiContextProvider = ({ children }) => {
 
     const contextValue = useMemo(() => {
         return { newMessage, newChannel, renameChannel, removeChannel, socket };
-    }, [newMessage, newChannel, renameChannel, removeChannel, socket]);
+    }, [newChannel, renameChannel, removeChannel, socket]);
 
-    const actions = {
-        addChannelAction,
-        changeCurrentChannelAction,
-        renameChannelAction,
-        removeChannelAction,
-        addMessageAction,
-    };
+    const actions = useMemo(
+        () => ({
+            addChannelAction,
+            changeCurrentChannelAction,
+            renameChannelAction,
+            removeChannelAction,
+            addMessageAction,
+        }),
+        []
+    );
 
     useEffect(() => {
         ChatServices.initSocketLinteners(dispatch, actions);
@@ -37,7 +40,7 @@ export const ChatApiContextProvider = ({ children }) => {
         return () => {
             ChatServices.unsubscribeSocketListeners();
         };
-    }, []);
+    }, [actions, dispatch]);
 
     return <ChatApiContext.Provider value={contextValue}>{children}</ChatApiContext.Provider>;
 };

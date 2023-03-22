@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { useChatApiContext } from '../../hooks/useChatApiContext';
 import { addMessageAction } from '../../store/messagesSlice/slice';
@@ -7,6 +8,7 @@ import { addMessageAction } from '../../store/messagesSlice/slice';
 export const AddMessageForm = () => {
     const [message, setMessage] = useState('');
     const { newMessage, socket } = useChatApiContext();
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const messageInputRef = useRef(null);
 
@@ -28,8 +30,7 @@ export const AddMessageForm = () => {
                     name="message"
                     value={message}
                     onChange={inputMessagehandler}
-                    aria-label="Новое сообщение"
-                    placeholder="Введите сообщение"
+                    placeholder={t('chat.enterMessage')}
                     className="border-0 ps-2 p-0 form-control"
                     autoComplete="off"
                 />

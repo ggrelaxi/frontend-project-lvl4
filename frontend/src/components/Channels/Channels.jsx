@@ -6,8 +6,10 @@ import { changeCurrentChannel } from '../../store/channelsSlice/slice';
 import { getCurrentChannelId, getChannels } from '../../store/channelsSlice/selectors';
 import { openModal } from '../../store/modalSlice/slice';
 import { ADD_CHANNEL_MODAL, REMOVE_CHANNEL_MODAL, RENAME_CHANNEL_MODAL } from '../../store/modalSlice/constants';
+import { useTranslation } from 'react-i18next';
 
 export const Channels = React.memo(() => {
+    const { t } = useTranslation();
     const currentChannelId = useSelector(getCurrentChannelId);
     const channels = useSelector(getChannels);
 
@@ -33,7 +35,7 @@ export const Channels = React.memo(() => {
     return (
         <>
             <div className="p-4 px-2 d-flex justify-content-between">
-                <div className="fw-bold">Каналы</div>
+                <div className="fw-bold">{t('chat.channels')}</div>
                 <Button className="p-0 text-primary btn btn-group-vertical" onClick={addChannelHandler}>
                     <PlusSquare fill="white" color="blue" size={20} />
                 </Button>
@@ -66,10 +68,10 @@ export const Channels = React.memo(() => {
 
                                         <Dropdown.Menu>
                                             <Dropdown.Item onClick={openRemoveChannelModal(channel.id)}>
-                                                Удалить
+                                                {t('chat.delete')}
                                             </Dropdown.Item>
                                             <Dropdown.Item onClick={openRenameChannelModal(channel.id)}>
-                                                Переименовать
+                                                {t('chat.rename')}
                                             </Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>

@@ -7,10 +7,12 @@ import { signupValidationSchema } from './validation-schema';
 import { AuthContext } from '../../../context';
 import { AuthServices } from '../../../api';
 import { AppSpinner } from '../../common/AppSpinner';
+import { useTranslation } from 'react-i18next';
 
 const Signup = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isFirstSubmit, setIsFirstSubmit] = useState(true);
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
 
@@ -31,7 +33,7 @@ const Signup = () => {
 
     return (
         <RegistrationContainer>
-            <h1>Регистрация</h1>
+            <h1>{t('signupPage.registration')}</h1>
             <Formik
                 initialValues={{
                     username: '',
@@ -46,13 +48,13 @@ const Signup = () => {
                 {({ values, errors, handleChange, handleSubmit, touched }) => (
                     <form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3 position-relative">
-                            <Form.Label>Имя пользователя</Form.Label>
+                            <Form.Label>{t('signupPage.userName')}</Form.Label>
                             <Form.Control
                                 isInvalid={'username' in errors}
                                 value={values.username}
                                 type="text"
                                 name="username"
-                                placeholder="Enter your name"
+                                placeholder={t('signupPage.userNamePlaceholder')}
                                 onChange={handleChange}
                             />
                             {errors.username && touched.username && (
@@ -62,12 +64,12 @@ const Signup = () => {
                             )}
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Label>Пароль</Form.Label>
+                            <Form.Label>{t('signupPage.password')}</Form.Label>
                             <Form.Control
                                 isInvalid={'password' in errors}
                                 value={values.password}
                                 type="password"
-                                placeholder="Password"
+                                placeholder={t('signupPage.passwordPlaceholder')}
                                 name="password"
                                 onChange={handleChange}
                             />
@@ -79,12 +81,12 @@ const Signup = () => {
                         </Form.Group>
 
                         <Form.Group className="mb-3">
-                            <Form.Label>Подтверждение пароля</Form.Label>
+                            <Form.Label>{t('signupPage.passwordConfirm')}</Form.Label>
                             <Form.Control
                                 isInvalid={'passwordConfirm' in errors}
                                 value={values.passwordConfirm}
                                 type="password"
-                                placeholder=""
+                                placeholder={t('signupPage.passwordConfirmPlaceholder')}
                                 name="passwordConfirm"
                                 onChange={handleChange}
                             />
@@ -101,7 +103,7 @@ const Signup = () => {
                             onClick={() => setIsFirstSubmit(false)}
                             disabled={isLoading}
                         >
-                            Зарегистрироваться
+                            {t('signupPage.submitButton')}
                         </Button>
                     </form>
                 )}

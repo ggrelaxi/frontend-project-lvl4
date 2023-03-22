@@ -44,7 +44,7 @@ export class ChatServices {
     }
 
     static initSocketLinteners(dispatch, actions) {
-        this.socket.on('newMessage', (response) => {});
+        this.socket.on('newMessage', () => {});
 
         this.socket.on('newChannel', (response) => {
             dispatch(actions.addChannelAction(response));

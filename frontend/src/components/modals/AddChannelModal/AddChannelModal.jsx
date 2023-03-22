@@ -1,6 +1,7 @@
 import { Alert, Modal, Button, Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActiveModal } from '../../../store/modalSlice/selectors';
 import { getChannelsName } from '../../../store/channelsSlice/selectors';
@@ -14,6 +15,7 @@ export const AddChannelModal = () => {
     const createdChannels = useSelector(getChannelsName);
     const [isAddChannelModalDisabled, setIsAddChannelModalDisabled] = useState(false);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     const { values, handleSubmit, handleChange, errors, isValid, dirty } = useFormik({
         initialValues: {
@@ -39,7 +41,7 @@ export const AddChannelModal = () => {
         <Modal show={isModalOpen} onHide={handleClose}>
             <Form onSubmit={handleSubmit}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Добавить канал</Modal.Title>
+                    <Modal.Title>{t('modals.add.header')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="border-none">
                     <Form.Group>
@@ -47,7 +49,7 @@ export const AddChannelModal = () => {
                             type="text"
                             value={values.channelTitle}
                             name="channelTitle"
-                            placeholder="Название канала"
+                            placeholder={t('modals.add.placeholder')}
                             autoFocus
                             onChange={handleChange}
                             isInvalid={'channelTitle' in errors}
@@ -62,10 +64,10 @@ export const AddChannelModal = () => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Отменить
+                        {t('modals.add.cancel')}
                     </Button>
                     <Button variant="primary" type="submit" disabled={isSubmitDisabled}>
-                        Отправить
+                        {t('modals.add.submit')}
                     </Button>
                 </Modal.Footer>
             </Form>

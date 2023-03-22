@@ -27,6 +27,8 @@ const ChatPage = () => {
     }, [dispatch]);
 
     const renderModal = (modal) => {
+        /* eslint-disable indent */
+
         switch (modal) {
             case ADD_CHANNEL_MODAL:
                 return <AddChannelModal />;
@@ -37,11 +39,12 @@ const ChatPage = () => {
             default:
                 return null;
         }
+        /* eslint-enable indent */
     };
 
     return (
         <>
-            <ChatPageContainer className="row shadow rounded">
+            <ChatPageContainer className="row shadow rounded container p-0 mx-2 mx-sm-0 mx-md-0 mx-xl-0">
                 <Col className="col-4 col-xl-2 border-end flex-column h-100 d-flex pe-0">
                     <Channels />
                 </Col>

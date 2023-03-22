@@ -7,10 +7,12 @@ import { loginValidationSchema } from './validation-schema';
 import { AuthContext } from '../../../context';
 import { AuthServices } from '../../../api';
 import { AppSpinner } from '../../common/AppSpinner';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [authError, setAuthError] = useState(false);
+    const { t } = useTranslation();
     const { login } = useContext(AuthContext);
 
     const { values, handleSubmit, handleChange, errors, isValid } = useFormik({
@@ -36,27 +38,26 @@ const Login = () => {
 
     return (
         <LoginContainer>
-            <h1>Вход</h1>
+            <h1>{t('loginPage.enter')}</h1>
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3 position-relative">
-                    <Form.Label>Имя пользователя</Form.Label>
+                    <Form.Label>{t('loginPage.userName')}</Form.Label>
                     <Form.Control
                         isInvalid={'username' in errors}
                         value={values.username}
                         type="text"
                         name="username"
-                        placeholder="Enter your name"
+                        placeholder={t('loginPage.userNamePlaceholder')}
                         onChange={handleChange}
                     />
-                    <Form.Text className="text-muted">Well never share your email with anyone else.</Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Label>Пароль</Form.Label>
+                    <Form.Label>{t('loginPage.password')}</Form.Label>
                     <Form.Control
                         isInvalid={'password' in errors}
                         value={values.password}
                         type="password"
-                        placeholder="Password"
+                        placeholder={t('loginPage.passwordPlaceholder')}
                         name="password"
                         onChange={handleChange}
                     />
@@ -64,16 +65,17 @@ const Login = () => {
 
                 {authError && (
                     <Alert variant="danger" onClose={() => setAuthError(false)} dismissible>
+                        {/* TODO доделать тексты ошибок */}
                         <p>Ошибка авторизации</p>
                     </Alert>
                 )}
 
                 <Button variant="primary" type="submit" disabled={!isValid}>
-                    Submit
+                    {t('loginPage.submitButton')}
                 </Button>
             </Form>
             <div className="mt-5">
-                Нет аккаунта? <Link to="/signup">Зарегистрироваться</Link>
+                {t('loginPage.noAccount')} <Link to="/signup">{t('loginPage.signup')}</Link>
             </div>
             {isLoading && <AppSpinner />}
         </LoginContainer>

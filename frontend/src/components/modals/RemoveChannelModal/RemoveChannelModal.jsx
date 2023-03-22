@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { getActiveModal } from '../../../store/modalSlice/selectors';
 import { getChannelIdToDelete } from '../../../store/channelsSlice/selectors';
@@ -11,7 +12,7 @@ export const RemoveChannelModal = () => {
     const activeModal = useSelector(getActiveModal);
     const channelIdToDelete = useSelector(getChannelIdToDelete);
     const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
-
+    const { t } = useTranslation();
     const dispatch = useDispatch();
 
     const handleClose = () => {
@@ -32,15 +33,15 @@ export const RemoveChannelModal = () => {
         <Modal show={isModalOpen} onHide={handleClose}>
             <Form onSubmit={handleSubmit}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Удалить канал</Modal.Title>
+                    <Modal.Title>{t('modals.remove.header')}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="border-none">Вы уверены?</Modal.Body>
+                <Modal.Body className="border-none">{t('modals.remove.description')}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Отменить
+                        {t('modals.remove.cancel')}
                     </Button>
                     <Button variant="primary" type="submit" disabled={isSubmitButtonDisabled}>
-                        Отправить
+                        {t('modals.remove.submit')}
                     </Button>
                 </Modal.Footer>
             </Form>

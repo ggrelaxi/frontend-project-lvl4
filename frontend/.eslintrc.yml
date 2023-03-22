@@ -48,3 +48,4 @@ rules:
     react/jsx-filename-extension: [1, { 'extensions': ['.js', '.jsx'] }]
     no-param-reassign: [0]
     functional/no-class: [0]
+    functional/no-this-expression: [0]

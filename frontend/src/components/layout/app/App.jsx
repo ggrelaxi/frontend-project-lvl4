@@ -9,7 +9,7 @@ import { retryTime } from '../../../config';
 
 const SignupPage = lazy(() => import('../../pages/Signup/Signup'));
 const LoginPage = lazy(() => import('../../pages/Login/Login'));
-const MainPage = lazy(() => import('../../pages/Chat/Chat'));
+const ChatPage = lazy(() => import('../../pages/Chat/Chat'));
 const NotFoundPage = lazy(() => import('../../pages/NotFound/NotFound'));
 
 const PrivateOutlet = () => {
@@ -42,7 +42,7 @@ export const App = () => {
                         index
                         element={
                             <Suspense fallback={<AppSpinner />}>
-                                <MainPage />
+                                <ChatPage />
                             </Suspense>
                         }
                     />
