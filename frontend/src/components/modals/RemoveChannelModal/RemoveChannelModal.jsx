@@ -7,6 +7,8 @@ import { getChannelIdToDelete } from '../../../store/channelsSlice/selectors';
 import { REMOVE_CHANNEL_MODAL } from '../../../store/modalSlice/constants';
 import { ChatServices } from '../../../api';
 import { closeModal } from '../../../store/modalSlice/slice';
+import { showNotification } from '../../Notification/notification-emmiter';
+import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
 
 export const RemoveChannelModal = () => {
     const activeModal = useSelector(getActiveModal);
@@ -22,8 +24,12 @@ export const RemoveChannelModal = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         setIsSubmitButtonDisabled(true);
-        ChatServices.removeChannel(channelIdToDelete, () => {
-            dispatch(closeModal());
+        ChatServices.removeChannel(channelIdToDelete, (error = null) => {
+            if (error) {
+                showNotification(t('notifications.removeChannelError', ERROR_NOTIFICATION));
+            } else {
+                dispatch(closeModal());
+            }
         });
     };
 

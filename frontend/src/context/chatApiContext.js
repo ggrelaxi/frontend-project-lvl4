@@ -8,6 +8,7 @@ import {
     removeChannel as removeChannelAction,
     renameChannel as renameChannelAction,
 } from '../store/channelsSlice/slice';
+import { useTranslation } from 'react-i18next';
 
 export const ChatApiContext = createContext();
 
@@ -18,6 +19,7 @@ const newMessage = (message) => {
 export const ChatApiContextProvider = ({ children }) => {
     const { newChannel, renameChannel, removeChannel, socket } = ChatServices;
     const dispatch = useDispatch();
+    const { t: translator } = useTranslation();
 
     const contextValue = useMemo(() => {
         return { newMessage, newChannel, renameChannel, removeChannel, socket };
@@ -35,7 +37,7 @@ export const ChatApiContextProvider = ({ children }) => {
     );
 
     useEffect(() => {
-        ChatServices.initSocketLinteners(dispatch, actions);
+        ChatServices.initSocketLinteners(dispatch, actions, translator);
 
         return () => {
             ChatServices.unsubscribeSocketListeners();

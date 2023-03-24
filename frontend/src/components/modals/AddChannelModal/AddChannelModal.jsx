@@ -9,6 +9,8 @@ import { ADD_CHANNEL_MODAL } from '../../../store/modalSlice/constants';
 import { closeModal } from '../../../store/modalSlice/slice';
 import { buildValidationSchema } from '../validation-schema';
 import { ChatServices } from '../../../api';
+import { showNotification } from '../../Notification/notification-emmiter';
+import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
 
 export const AddChannelModal = () => {
     const activeModal = useSelector(getActiveModal);
@@ -24,8 +26,12 @@ export const AddChannelModal = () => {
         validationSchema: buildValidationSchema(createdChannels),
         onSubmit: ({ channelTitle }) => {
             setIsAddChannelModalDisabled(true);
-            ChatServices.newChannel({ name: channelTitle }, () => {
-                dispatch(closeModal());
+            ChatServices.newChannel({ name: channelTitle }, (error = null) => {
+                if (error) {
+                    showNotification(t('notifications.newChannelError'), ERROR_NOTIFICATION);
+                } else {
+                    dispatch(closeModal());
+                }
             });
         },
     });

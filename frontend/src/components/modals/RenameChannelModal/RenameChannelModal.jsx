@@ -9,6 +9,8 @@ import { RENAME_CHANNEL_MODAL } from '../../../store/modalSlice/constants';
 import { closeModal } from '../../../store/modalSlice/slice';
 import { buildValidationSchema } from '../validation-schema';
 import { ChatServices } from '../../../api';
+import { showNotification } from '../../Notification/notification-emmiter';
+import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
 
 export const RenameChannelModal = () => {
     const activeModal = useSelector(getActiveModal);
@@ -26,7 +28,10 @@ export const RenameChannelModal = () => {
         validationSchema: buildValidationSchema(createdChannelsName),
         onSubmit: ({ channelTitle }) => {
             setIsRemoveChannelModalDisabled(true);
-            ChatServices.renameChannel({ name: channelTitle, id: channelIdToRename }, () => {
+            ChatServices.renameChannel({ name: channelTitle, id: channelIdToRename }, (error = null) => {
+                if (error) {
+                    showNotification(t('notifications.renameChannelError'), ERROR_NOTIFICATION);
+                }
                 dispatch(closeModal());
             });
         },

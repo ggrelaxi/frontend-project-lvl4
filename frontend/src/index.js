@@ -7,6 +7,7 @@ import { App } from './components/layout/App';
 import { AuthContextProvider, ChatApiContextProvider } from './context';
 import { store } from './store/index';
 import i18n from './locale/index';
+import { Notification } from './components/Notification/Notification';
 
 import './design/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,6 +20,7 @@ root.render(
                 <BrowserRouter>
                     <AuthContextProvider>
                         <App />
+                        <Notification />
                     </AuthContextProvider>
                 </BrowserRouter>
             </ChatApiContextProvider>

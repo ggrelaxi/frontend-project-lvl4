@@ -59,4 +59,13 @@ export const ru = {
             submit: 'Удалить',
         },
     },
+    notifications: {
+        newChannel: 'Канал успешно добавлен',
+        newChannelError: 'Ошибка добавления канала',
+        renameChannel: 'Канал успешно переименован',
+        renameChannelError: 'Ошибка переименовывания канала',
+        removeChannel: 'Канал успешно удален',
+        removeChannelError: 'Ошибка удаления канала',
+        newMessageError: 'Ошибка добавления нового сообщения',
+    },
 };
