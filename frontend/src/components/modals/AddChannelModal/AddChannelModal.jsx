@@ -11,6 +11,7 @@ import { buildValidationSchema } from '../validation-schema';
 import { ChatServices } from '../../../api';
 import { showNotification } from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
+import { wordFilter } from '../../../wordsFilter';
 
 export const AddChannelModal = () => {
     const activeModal = useSelector(getActiveModal);
@@ -26,7 +27,7 @@ export const AddChannelModal = () => {
         validationSchema: buildValidationSchema(createdChannels),
         onSubmit: ({ channelTitle }) => {
             setIsAddChannelModalDisabled(true);
-            ChatServices.newChannel({ name: channelTitle }, (error = null) => {
+            ChatServices.newChannel({ name: wordFilter.clean(channelTitle) }, (error = null) => {
                 if (error) {
                     showNotification(t('notifications.newChannelError'), ERROR_NOTIFICATION);
                 } else {

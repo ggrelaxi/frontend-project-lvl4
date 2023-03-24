@@ -2,8 +2,10 @@ import { useState, useRef } from 'react';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+
 import { useChatApiContext } from '../../hooks/useChatApiContext';
 import { addMessageAction } from '../../store/messagesSlice/slice';
+import { wordFilter } from '../../wordsFilter';
 
 export const AddMessageForm = () => {
     const [message, setMessage] = useState('');
@@ -13,6 +15,8 @@ export const AddMessageForm = () => {
     const messageInputRef = useRef(null);
 
     const inputMessagehandler = (event) => {
+        console.log(wordFilter);
+        console.log(wordFilter.clean(event.target.value));
         setMessage(event.target.value);
     };
 

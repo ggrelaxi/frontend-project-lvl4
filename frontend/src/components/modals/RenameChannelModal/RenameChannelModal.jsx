@@ -11,6 +11,7 @@ import { buildValidationSchema } from '../validation-schema';
 import { ChatServices } from '../../../api';
 import { showNotification } from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
+import { wordFilter } from '../../../wordsFilter';
 
 export const RenameChannelModal = () => {
     const activeModal = useSelector(getActiveModal);
@@ -28,12 +29,15 @@ export const RenameChannelModal = () => {
         validationSchema: buildValidationSchema(createdChannelsName),
         onSubmit: ({ channelTitle }) => {
             setIsRemoveChannelModalDisabled(true);
-            ChatServices.renameChannel({ name: channelTitle, id: channelIdToRename }, (error = null) => {
-                if (error) {
-                    showNotification(t('notifications.renameChannelError'), ERROR_NOTIFICATION);
+            ChatServices.renameChannel(
+                { name: wordFilter.clean(channelTitle), id: channelIdToRename },
+                (error = null) => {
+                    if (error) {
+                        showNotification(t('notifications.renameChannelError'), ERROR_NOTIFICATION);
+                    }
+                    dispatch(closeModal());
                 }
-                dispatch(closeModal());
-            });
+            );
         },
     });
 
