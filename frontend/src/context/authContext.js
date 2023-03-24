@@ -5,36 +5,39 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
     const navigate = useNavigate();
-    const [isLogin, setIsLogin] = useState(window.localStorage.getItem('token') || false);
+    const [user, setUser] = useState(JSON.parse(window.localStorage.getItem('user')) || null);
 
     const logout = useCallback(() => {
-        window.localStorage.removeItem('token');
-        setIsLogin(false);
+        window.localStorage.removeItem('user');
+        setUser(null);
         navigate('/');
     }, [navigate]);
 
     const login = useCallback(
-        (token) => {
-            window.localStorage.setItem('token', token);
-            setIsLogin(true);
+        (token, username) => {
+            window.localStorage.setItem('user', JSON.stringify({ token, username }));
+            setUser({ token, username });
             navigate('/');
         },
         [navigate]
     );
 
     const checkIsUserLogin = useCallback(() => {
-        const token = window.localStorage.getItem('token');
-        return isLogin || !!token || false;
-    }, [isLogin]);
+        const userData = JSON.parse(window.localStorage.getItem('user'));
+        if (!userData) return false;
+        const { token } = userData;
+
+        return !!user || !!token || false;
+    }, [user]);
 
     const contextValue = useMemo(
         () => ({
             login,
             logout,
             checkIsUserLogin,
-            isLogin,
+            user,
         }),
-        [isLogin, login, logout, checkIsUserLogin]
+        [user, login, logout, checkIsUserLogin]
     );
 
     return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;

@@ -11,7 +11,7 @@ import { buildValidationSchema } from '../validation-schema';
 import { ChatServices } from '../../../api';
 import { showNotification } from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
-import { wordFilter } from '../../../wordsFilter';
+import { useWordFilterContext } from '../../../hooks/useWordFilterContext';
 
 export const RenameChannelModal = () => {
     const activeModal = useSelector(getActiveModal);
@@ -21,6 +21,7 @@ export const RenameChannelModal = () => {
     const [isRemoveChannelModalDisabled, setIsRemoveChannelModalDisabled] = useState(false);
     const dispatch = useDispatch();
     const { t } = useTranslation();
+    const { wordFilter } = useWordFilterContext();
 
     const { values, handleSubmit, handleChange, errors, isValid, dirty } = useFormik({
         initialValues: {
@@ -29,6 +30,7 @@ export const RenameChannelModal = () => {
         validationSchema: buildValidationSchema(createdChannelsName),
         onSubmit: ({ channelTitle }) => {
             setIsRemoveChannelModalDisabled(true);
+
             ChatServices.renameChannel(
                 { name: wordFilter.clean(channelTitle), id: channelIdToRename },
                 (error = null) => {
@@ -66,11 +68,10 @@ export const RenameChannelModal = () => {
                             isInvalid={'channelTitle' in errors}
                             className="mb-1"
                         />
-                        {!isValid && (
-                            <Alert className="m-0 p-1" variant="light">
-                                {errors.channelTitle}
-                            </Alert>
-                        )}
+
+                        {errors.channelTitle ? (
+                            <div className="py-2 text-danger">{t(errors.channelTitle.transKey)}</div>
+                        ) : null}
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>

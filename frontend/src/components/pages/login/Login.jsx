@@ -1,17 +1,18 @@
-import { Button, Form, Alert } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useContext, useState } from 'react';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { LoginContainer } from './login.styled';
 import { loginValidationSchema } from './validation-schema';
 import { AuthContext } from '../../../context';
 import { AuthServices } from '../../../api';
 import { AppSpinner } from '../../common/AppSpinner';
-import { useTranslation } from 'react-i18next';
+import { showNotification } from '../../Notification/notification-emmiter';
+import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
 
 const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [authError, setAuthError] = useState(false);
     const { t } = useTranslation();
     const { login } = useContext(AuthContext);
 
@@ -24,13 +25,13 @@ const Login = () => {
         onSubmit: (formValues) => {
             setIsLoading(true);
             const { username, password } = formValues;
+
             AuthServices.login(username, password)
                 .then(({ data: { token } }) => {
-                    login(token);
+                    login(token, username);
                 })
-                .catch((e) => {
-                    console.log(e);
-                    setAuthError(true);
+                .catch(() => {
+                    showNotification(t('notifications.authError'), ERROR_NOTIFICATION);
                 })
                 .finally(() => setIsLoading(false));
         },
@@ -50,6 +51,12 @@ const Login = () => {
                         placeholder={t('loginPage.userNamePlaceholder')}
                         onChange={handleChange}
                     />
+
+                    {errors.username ? (
+                        <div className="py-2 text-danger">
+                            {t(errors.username.transKey, { minValue: errors.username.min })}
+                        </div>
+                    ) : null}
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>{t('loginPage.password')}</Form.Label>
@@ -61,14 +68,12 @@ const Login = () => {
                         name="password"
                         onChange={handleChange}
                     />
+                    {errors.password ? (
+                        <div className="py-2 text-danger">
+                            {t(errors.password.transKey, { minValue: errors.password.min })}
+                        </div>
+                    ) : null}
                 </Form.Group>
-
-                {authError && (
-                    <Alert variant="danger" onClose={() => setAuthError(false)} dismissible>
-                        {/* TODO доделать тексты ошибок */}
-                        <p>Ошибка авторизации</p>
-                    </Alert>
-                )}
 
                 <Button variant="primary" type="submit" disabled={!isValid}>
                     {t('loginPage.submitButton')}

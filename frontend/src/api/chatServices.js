@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 import { showNotification } from '../components/Notification/notification-emmiter';
-import { SUCCESS_NOTIFICATION, ERROR_NOTIFICATION } from '../components/Notification/notification-type';
+import { SUCCESS_NOTIFICATION } from '../components/Notification/notification-type';
 
 export class ChatServices {
     static socket = io();
@@ -10,7 +10,7 @@ export class ChatServices {
             if (response.status === 'ok') {
                 cb();
             } else {
-                showNotification(translator('notifications.newMessageError'), SUCCESS_NOTIFICATION);
+                cb(new Error());
             }
         });
     }
@@ -46,7 +46,9 @@ export class ChatServices {
     }
 
     static initSocketLinteners(dispatch, actions, translator) {
-        this.socket.on('newMessage', () => {});
+        this.socket.on('newMessage', (response) => {
+            dispatch(actions.addMessageAction(response));
+        });
 
         this.socket.on('newChannel', (response) => {
             dispatch(actions.addChannelAction(response));

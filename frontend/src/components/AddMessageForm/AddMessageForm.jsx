@@ -1,31 +1,43 @@
 import { useState, useRef } from 'react';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-
-import { useChatApiContext } from '../../hooks/useChatApiContext';
-import { addMessageAction } from '../../store/messagesSlice/slice';
-import { wordFilter } from '../../wordsFilter';
+import { useSelector } from 'react-redux';
+import { useWordFilterContext } from '../../hooks/useWordFilterContext';
+import { getCurrentChannelId } from '../../store/channelsSlice/selectors';
+import { useAuthContext } from '../../hooks/useAuthContext';
+import { ChatServices } from '../../api';
+import { showNotification } from '../Notification/notification-emmiter';
+import { ERROR_NOTIFICATION } from '../Notification/notification-type';
 
 export const AddMessageForm = () => {
     const [message, setMessage] = useState('');
-    const { newMessage, socket } = useChatApiContext();
+
+    const channelId = useSelector(getCurrentChannelId);
+
+    const {
+        user: { username },
+    } = useAuthContext();
+    const { wordFilter } = useWordFilterContext();
     const { t } = useTranslation();
-    const dispatch = useDispatch();
     const messageInputRef = useRef(null);
 
     const inputMessagehandler = (event) => {
-        console.log(wordFilter);
-        console.log(wordFilter.clean(event.target.value));
         setMessage(event.target.value);
     };
 
     const submitHandler = (event) => {
         event.preventDefault();
-        newMessage({ message });
-        setMessage('');
-        messageInputRef.current.focus();
+        const newMessage = { body: wordFilter.clean(message), channelId, username };
+        ChatServices.newMessage(newMessage, (error = null) => {
+            if (error) {
+                showNotification(t('notifications.newMessageError'), ERROR_NOTIFICATION);
+            } else {
+                messageInputRef.current.focus();
+                setMessage('');
+            }
+        });
     };
+
     return (
         <form noValidate className="py-1 border rounded-2 mx-5 my-3 mt-auto" onSubmit={submitHandler}>
             <div className="input-group has-validation">

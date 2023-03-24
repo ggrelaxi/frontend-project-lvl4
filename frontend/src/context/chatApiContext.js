@@ -1,5 +1,6 @@
 import { useMemo, createContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { ChatServices } from '../api';
 import { addMessage as addMessageAction } from '../store/messagesSlice/slice';
 import {
@@ -8,22 +9,17 @@ import {
     removeChannel as removeChannelAction,
     renameChannel as renameChannelAction,
 } from '../store/channelsSlice/slice';
-import { useTranslation } from 'react-i18next';
 
 export const ChatApiContext = createContext();
 
-const newMessage = (message) => {
-    ChatServices.newMessage(message);
-};
-
 export const ChatApiContextProvider = ({ children }) => {
-    const { newChannel, renameChannel, removeChannel, socket } = ChatServices;
+    const { newMessage, newChannel, renameChannel, removeChannel, socket } = ChatServices;
     const dispatch = useDispatch();
     const { t: translator } = useTranslation();
 
     const contextValue = useMemo(() => {
         return { newMessage, newChannel, renameChannel, removeChannel, socket };
-    }, [newChannel, renameChannel, removeChannel, socket]);
+    }, [newMessage, newChannel, renameChannel, removeChannel, socket]);
 
     const actions = useMemo(
         () => ({
@@ -42,7 +38,7 @@ export const ChatApiContextProvider = ({ children }) => {
         return () => {
             ChatServices.unsubscribeSocketListeners();
         };
-    }, [actions, dispatch]);
+    }, [actions, dispatch, translator]);
 
     return <ChatApiContext.Provider value={contextValue}>{children}</ChatApiContext.Provider>;
 };

@@ -1,13 +1,15 @@
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { useContext, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { RegistrationContainer } from './signup.styled';
 import { signupValidationSchema } from './validation-schema';
 import { AuthContext } from '../../../context';
 import { AuthServices } from '../../../api';
 import { AppSpinner } from '../../common/AppSpinner';
-import { useTranslation } from 'react-i18next';
+import { showNotification } from '../../Notification/notification-emmiter';
+import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
 
 const Signup = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -20,13 +22,18 @@ const Signup = () => {
         setIsLoading(true);
         setIsFirstSubmit(false);
         const { username, password } = formValues;
+
         AuthServices.signup(username, password)
-            .then(({ data: { token } }) => {
-                login(token);
+            .then(({ data: token }) => {
+                login(token, username);
                 return navigate('/');
             })
-            .catch(() => {
-                alert('Пользователь уже существеут');
+            .catch((error) => {
+                if (error.response.status === 409) {
+                    showNotification(t('notifications.userAlreadySignup'), ERROR_NOTIFICATION);
+                } else {
+                    showNotification(t('notifications.commonError'), ERROR_NOTIFICATION);
+                }
             })
             .finally(() => setIsLoading(false));
     };
@@ -45,7 +52,7 @@ const Signup = () => {
                 validateOnChange={!isFirstSubmit}
                 validateOnBlur={!isFirstSubmit}
             >
-                {({ values, errors, handleChange, handleSubmit, touched }) => (
+                {({ values, errors, handleChange, handleSubmit }) => (
                     <form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3 position-relative">
                             <Form.Label>{t('signupPage.userName')}</Form.Label>
@@ -57,11 +64,14 @@ const Signup = () => {
                                 placeholder={t('signupPage.userNamePlaceholder')}
                                 onChange={handleChange}
                             />
-                            {errors.username && touched.username && (
-                                <Alert className="py-1 my-2" variant="danger">
-                                    {errors.username}
-                                </Alert>
-                            )}
+                            {errors.username ? (
+                                <div className="py-2 text-danger">
+                                    {t(errors.username.transKey, {
+                                        minValue: errors.username.min,
+                                        maxValue: errors.username.max,
+                                    })}
+                                </div>
+                            ) : null}
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>{t('signupPage.password')}</Form.Label>
@@ -73,11 +83,11 @@ const Signup = () => {
                                 name="password"
                                 onChange={handleChange}
                             />
-                            {errors.password && touched.password && (
-                                <Alert className="py-1 my-2" variant="danger">
-                                    {errors.password}
-                                </Alert>
-                            )}
+                            {errors.password ? (
+                                <div className="py-2 text-danger">
+                                    {t(errors.password.transKey, { minValue: errors.password.min })}
+                                </div>
+                            ) : null}
                         </Form.Group>
 
                         <Form.Group className="mb-3">
@@ -90,11 +100,11 @@ const Signup = () => {
                                 name="passwordConfirm"
                                 onChange={handleChange}
                             />
-                            {errors.passwordConfirm && touched.passwordConfirm && (
-                                <Alert className="py-1 my-2" variant="danger">
-                                    {errors.passwordConfirm}
-                                </Alert>
-                            )}
+                            {errors.passwordConfirm ? (
+                                <div className="py-2 text-danger">
+                                    {t(errors.passwordConfirm.transKey, { minValue: errors.passwordConfirm.min })}
+                                </div>
+                            ) : null}
                         </Form.Group>
 
                         <Button

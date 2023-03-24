@@ -6,7 +6,7 @@ import Logo from '../../../assets/icons/logo.svg';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 
 export const Header = () => {
-    const { logout, isLogin } = useAuthContext();
+    const { logout, user } = useAuthContext();
     const { t } = useTranslation();
     const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ export const Header = () => {
                         </Link>
                     </Col>
                     <Col className="col-2 d-flex justify-content-end">
-                        {isLogin && <Button onClick={logoutHandler}>{t('common.header.logoutButton')}</Button>}
+                        {user && <Button onClick={logoutHandler}>{t('common.header.logoutButton')}</Button>}
                     </Col>
                 </Row>
             </Container>

@@ -7,6 +7,6 @@ export const useAuthContext = () => {
 
 export const useIsUserLoggin = () => {
     const { checkIsUserLogin } = useAuthContext();
-    const isLogin = checkIsUserLogin();
-    return isLogin;
+
+    return checkIsUserLogin();
 };

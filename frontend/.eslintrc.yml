@@ -49,3 +49,4 @@ rules:
     no-param-reassign: [0]
     functional/no-class: [0]
     functional/no-this-expression: [0]
+    newline-per-chained-call: [0]

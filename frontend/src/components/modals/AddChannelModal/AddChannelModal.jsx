@@ -11,7 +11,7 @@ import { buildValidationSchema } from '../validation-schema';
 import { ChatServices } from '../../../api';
 import { showNotification } from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
-import { wordFilter } from '../../../wordsFilter';
+import { useWordFilterContext } from '../../../hooks/useWordFilterContext';
 
 export const AddChannelModal = () => {
     const activeModal = useSelector(getActiveModal);
@@ -19,6 +19,7 @@ export const AddChannelModal = () => {
     const [isAddChannelModalDisabled, setIsAddChannelModalDisabled] = useState(false);
     const dispatch = useDispatch();
     const { t } = useTranslation();
+    const { wordFilter } = useWordFilterContext();
 
     const { values, handleSubmit, handleChange, errors, isValid, dirty } = useFormik({
         initialValues: {
@@ -27,6 +28,7 @@ export const AddChannelModal = () => {
         validationSchema: buildValidationSchema(createdChannels),
         onSubmit: ({ channelTitle }) => {
             setIsAddChannelModalDisabled(true);
+
             ChatServices.newChannel({ name: wordFilter.clean(channelTitle) }, (error = null) => {
                 if (error) {
                     showNotification(t('notifications.newChannelError'), ERROR_NOTIFICATION);
@@ -62,11 +64,14 @@ export const AddChannelModal = () => {
                             isInvalid={'channelTitle' in errors}
                             className="mb-1"
                         />
-                        {!isValid && (
-                            <Alert className="m-0 p-1" variant="light">
-                                {errors.channelTitle}
-                            </Alert>
-                        )}
+                        {errors.channelTitle ? (
+                            <div className="py-2 text-danger">
+                                {t(errors.channelTitle.transKey, {
+                                    minValue: errors.channelTitle.min,
+                                    maxValue: errors.channelTitle.max,
+                                })}
+                            </div>
+                        ) : null}
                     </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
