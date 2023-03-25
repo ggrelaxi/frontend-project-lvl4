@@ -1,6 +1,5 @@
 import { Suspense, lazy, useEffect, useCallback } from 'react';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { AppSpinner } from '../../common/AppSpinner';
 import { urls } from '../../../urls';
 import { useAuthContext, useIsUserLoggin } from '../../../hooks/useAuthContext';
@@ -21,7 +20,6 @@ const PrivateOutlet = () => {
 
 export const App = () => {
     const { logout } = useAuthContext();
-    const { t } = useTranslation;
 
     const isServerOnline = useCallback(() => {
         apiClient
@@ -32,7 +30,7 @@ export const App = () => {
             });
 
         setTimeout(() => isServerOnline(), retryTime);
-    }, [logout, t]);
+    }, [logout]);
 
     useEffect(() => {
         isServerOnline();
