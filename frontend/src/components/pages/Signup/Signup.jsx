@@ -10,6 +10,7 @@ import { AuthServices } from '../../../api';
 import { AppSpinner } from '../../common/AppSpinner';
 import { showNotification } from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
+import { urls } from '../../../urls';
 
 const Signup = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +27,7 @@ const Signup = () => {
         AuthServices.signup(username, password)
             .then(({ data: token }) => {
                 login(token, username);
-                return navigate('/');
+                return navigate(urls.mainPage());
             })
             .catch((error) => {
                 if (error.response.status === 409) {

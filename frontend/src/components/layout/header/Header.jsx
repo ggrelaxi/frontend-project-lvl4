@@ -4,6 +4,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { HeaderContainer } from './header.styled';
 import Logo from '../../../assets/icons/logo.svg';
 import { useAuthContext } from '../../../hooks/useAuthContext';
+import { urls } from '../../../urls';
 
 export const Header = () => {
     const { logout, user } = useAuthContext();
@@ -12,7 +13,7 @@ export const Header = () => {
 
     const logoutHandler = () => {
         logout();
-        navigate('/login');
+        navigate(urls.loginPage());
     };
 
     return (
