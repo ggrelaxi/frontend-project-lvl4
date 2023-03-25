@@ -1,12 +1,11 @@
 {
 	"name": "frontend-project-lvl4",
 	"version": "1.0.0",
-	"description": "[![Actions Status](https://github.com/ggrelaxi/frontend-project-lvl4/workflows/hexlet-check/badge.svg)](https://github.com/ggrelaxi/frontend-project-lvl4/actions)",
-	"main": "index.js",
+	"description": "Online Chat",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "npx start-server -p 5100 -s ./frontend/build",
-		"build-front": "npm run build --prefix frontent"
+		"build-front": "npm run build --prefix frontend"
 	},
 	"repository": {
 		"type": "git",
