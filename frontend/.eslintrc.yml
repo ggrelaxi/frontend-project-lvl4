@@ -50,3 +50,6 @@ rules:
     functional/no-class: [0]
     functional/no-this-expression: [0]
     newline-per-chained-call: [0]
+    react/display-name: [0]
+    operator-linebreak: [0]
+    react/jsx-closing-tag-location: [0]

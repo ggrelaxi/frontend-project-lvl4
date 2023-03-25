@@ -13,6 +13,6 @@ export const Notification = () => {
             draggable
             pauseOnHover
             theme="light"
-        ></ToastContainer>
+        />
     );
 };

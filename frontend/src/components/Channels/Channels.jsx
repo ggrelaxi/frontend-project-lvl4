@@ -1,14 +1,14 @@
-import { useRef } from 'react';
+import { useRef, memo } from 'react';
 import { ListGroup, Button, Dropdown } from 'react-bootstrap/';
 import { PlusSquare } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { changeCurrentChannel } from '../../store/channelsSlice/slice';
 import { getCurrentChannelId, getChannels } from '../../store/channelsSlice/selectors';
 import { openModal } from '../../store/modalSlice/slice';
 import { ADD_CHANNEL_MODAL, REMOVE_CHANNEL_MODAL, RENAME_CHANNEL_MODAL } from '../../store/modalSlice/constants';
-import { useTranslation } from 'react-i18next';
 
-export const Channels = React.memo(() => {
+export const Channels = memo(() => {
     const { t } = useTranslation();
     const currentChannelId = useSelector(getCurrentChannelId);
     const channels = useSelector(getChannels);
