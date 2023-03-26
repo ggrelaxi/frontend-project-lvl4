@@ -6,8 +6,8 @@ import { apiClient } from '../../../api/client';
 import { retryTime } from '../../../config';
 import { Chat } from '../../pages/Chat/Chat';
 import { LoginPage } from '../../pages/LoginPage/LoginPage';
-import { Signup } from '../../pages/Signup/Signup';
-import { NotFound } from '../../pages/NotFound/NotFound';
+import { SignupPage } from '../../pages/SignupPage/SignupPage';
+import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage';
 import { AppLayout } from '../AppLayout/AppLayout';
 
 const PrivateOutlet = () => {
@@ -40,10 +40,10 @@ export const Application = () => {
                 <Route element={<PrivateOutlet />}>
                     <Route index element={<Chat />} />
                 </Route>
-                <Route path={urls.signUpPage()} element={<Signup />} />
+                <Route path={urls.signUpPage()} element={<SignupPage />} />
 
                 <Route path={urls.loginPage()} element={<LoginPage />} />
-                <Route path={urls.notFoundPage()} element={<NotFound />} />
+                <Route path={urls.notFoundPage()} element={<NotFoundPage />} />
             </Route>
         </Routes>
     );
