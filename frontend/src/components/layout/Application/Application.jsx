@@ -5,7 +5,7 @@ import { useAuthContext, useIsUserLoggin } from '../../../hooks/useAuthContext';
 import { apiClient } from '../../../api/client';
 import { retryTime } from '../../../config';
 import { Chat } from '../../pages/Chat/Chat';
-import { Login } from '../../pages/Login/Login';
+import { LoginPage } from '../../pages/LoginPage/LoginPage';
 import { Signup } from '../../pages/Signup/Signup';
 import { NotFound } from '../../pages/NotFound/NotFound';
 import { AppLayout } from '../AppLayout/AppLayout';
@@ -42,7 +42,7 @@ export const Application = () => {
                 </Route>
                 <Route path={urls.signUpPage()} element={<Signup />} />
 
-                <Route path={urls.loginPage()} element={<Login />} />
+                <Route path={urls.loginPage()} element={<LoginPage />} />
                 <Route path={urls.notFoundPage()} element={<NotFound />} />
             </Route>
         </Routes>

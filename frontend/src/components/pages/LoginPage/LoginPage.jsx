@@ -11,7 +11,7 @@ import { AppSpinner } from '../../common/AppSpinner';
 import { showNotification } from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
 
-export const Login = () => {
+export const LoginPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { t } = useTranslation();
     const { login } = useContext(AuthContext);
