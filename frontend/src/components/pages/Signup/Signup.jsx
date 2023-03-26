@@ -12,7 +12,7 @@ import { showNotification } from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
 import { urls } from '../../../urls';
 
-const Signup = () => {
+export const Signup = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isFirstSubmit, setIsFirstSubmit] = useState(true);
     const { t } = useTranslation();
@@ -123,5 +123,3 @@ const Signup = () => {
         </RegistrationContainer>
     );
 };
-
-export default Signup;

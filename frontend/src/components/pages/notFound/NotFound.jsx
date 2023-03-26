@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { NotFoundContainer } from './not-found.styled';
 
-const NotFound = () => {
+export const NotFound = () => {
     const { t } = useTranslation();
 
     return (
@@ -22,5 +22,3 @@ const NotFound = () => {
         </NotFoundContainer>
     );
 };
-
-export default NotFound;

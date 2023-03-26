@@ -14,7 +14,7 @@ import { AddChannelModal, RemoveChannelModal, RenameChannelModal } from '../../m
 import { ADD_CHANNEL_MODAL, REMOVE_CHANNEL_MODAL, RENAME_CHANNEL_MODAL } from '../../../store/modalSlice/constants';
 import { getActiveModal } from '../../../store/modalSlice/selectors';
 
-const ChatPage = () => {
+export const Chat = () => {
     const dispatch = useDispatch();
     const isChannelsLoading = useSelector(getIsChannelsLoading);
     const isMessagesLoading = useSelector(getIsMessagesLoading);
@@ -61,5 +61,3 @@ const ChatPage = () => {
         </>
     );
 };
-
-export default ChatPage;
