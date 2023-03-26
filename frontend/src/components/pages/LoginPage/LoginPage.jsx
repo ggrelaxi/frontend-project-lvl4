@@ -7,7 +7,7 @@ import { LoginContainer } from './login.styled';
 import { loginValidationSchema } from './validation-schema';
 import { AuthContext } from '../../../context';
 import { AuthServices } from '../../../api';
-import { AppSpinner } from '../../common/AppSpinner';
+import { Spinner } from '../../common/Spinner/Spinner';
 import { showNotification } from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
 
@@ -82,7 +82,7 @@ export const LoginPage = () => {
             <div className="mt-5">
                 {t('loginPage.noAccount')} <Link to="/signup">{t('loginPage.signup')}</Link>
             </div>
-            {isLoading && <AppSpinner />}
+            {isLoading && <Spinner />}
         </LoginContainer>
     );
 };

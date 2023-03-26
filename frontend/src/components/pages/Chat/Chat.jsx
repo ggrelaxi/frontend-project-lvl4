@@ -5,7 +5,7 @@ import { ChatPageContainer } from './chat.styled';
 import { getChatData } from '../../../store/commonThunks/index';
 import { getIsChannelsLoading } from '../../../store/channelsSlice/selectors';
 import { getIsMessagesLoading } from '../../../store/messagesSlice/selectors';
-import { AppSpinner } from '../../common/AppSpinner';
+import { Spinner } from '../../common/Spinner/Spinner';
 import { Channels } from '../../Channels';
 import { Messages } from '../../Messages/Messages';
 import { AddMessageForm } from '../../AddMessageForm';
@@ -56,7 +56,7 @@ export const Chat = () => {
                     <AddMessageForm />
                 </Col>
             </ChatPageContainer>
-            {isDataFetching && <AppSpinner />}
+            {isDataFetching && <Spinner />}
             {renderModal(activeModal)}
         </>
     );

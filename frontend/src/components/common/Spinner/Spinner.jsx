@@ -1,10 +1,10 @@
-import Spinner from 'react-bootstrap/Spinner';
+import SpinnerComponent from 'react-bootstrap/Spinner';
 import { SpinnerContainer } from './spinner.styled';
 
-export const AppSpinner = () => {
+export const Spinner = () => {
     return (
         <SpinnerContainer>
-            <Spinner />
+            <SpinnerComponent />
         </SpinnerContainer>
     );
 };

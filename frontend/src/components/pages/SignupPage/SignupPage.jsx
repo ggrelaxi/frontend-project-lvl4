@@ -7,7 +7,7 @@ import { RegistrationContainer } from './signup.styled';
 import { signupValidationSchema } from './validation-schema';
 import { AuthContext } from '../../../context';
 import { AuthServices } from '../../../api';
-import { AppSpinner } from '../../common/AppSpinner';
+import { Spinner } from '../../common/Spinner/Spinner';
 import { showNotification } from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
 import { urls } from '../../../urls';
@@ -119,7 +119,7 @@ export const SignupPage = () => {
                     </form>
                 )}
             </Formik>
-            {isLoading && <AppSpinner />}
+            {isLoading && <Spinner />}
         </RegistrationContainer>
     );
 };
