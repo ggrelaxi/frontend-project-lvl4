@@ -6,7 +6,7 @@ import { initReactI18next, I18nextProvider } from 'react-i18next';
 import i18n from 'i18next';
 import { setLocale } from 'yup';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
-import { App1 } from './components/layout/App/App1';
+import { Application } from './components/layout/Application/Application';
 import { AuthContextProvider, ChatApiContextProvider, WordFilterContextProvider } from './context';
 import { store } from './store/index';
 import { ru } from './locale/ru';
@@ -55,7 +55,7 @@ const initApp = async () => {
                                     <BrowserRouter>
                                         <WordFilterContextProvider>
                                             <AuthContextProvider>
-                                                <App1 />
+                                                <Application />
                                                 <Notification />
                                             </AuthContextProvider>
                                         </WordFilterContextProvider>
