@@ -1,15 +1,15 @@
 import React from 'react';
-import { Main } from '../Main/Main';
-import { Header } from '../Header/Header';
-import { Footer } from '../Footer/Footer';
+import { MainBlock } from '../MainBlock/MainBlock';
+import { HeaderBlock } from '../HeaderBlock/HeaderBlock';
+import { FooterBlock } from '../FooterBlock/Footer';
 import { LayoutContainer } from './layout.styled';
 
 export const AppLayout = () => {
     return (
         <LayoutContainer className="bg-light">
-            <Header className="bg-white" />
-            <Main />
-            <Footer className="bg-white" />
+            <HeaderBlock className="bg-white" />
+            <MainBlock />
+            <FooterBlock className="bg-white" />
         </LayoutContainer>
     );
 };

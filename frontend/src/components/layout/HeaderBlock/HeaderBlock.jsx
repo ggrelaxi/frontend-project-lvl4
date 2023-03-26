@@ -6,7 +6,7 @@ import Logo from '../../../assets/icons/logo.svg';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 import { urls } from '../../../urls';
 
-export const Header = () => {
+export const HeaderBlock = () => {
     const { logout, user } = useAuthContext();
     const { t } = useTranslation();
     const navigate = useNavigate();

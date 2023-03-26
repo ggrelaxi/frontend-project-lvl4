@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FooterContainer } from './footer.styled';
 
-export const Footer = () => {
+export const FooterBlock = () => {
     const { t } = useTranslation();
     return (
         <FooterContainer className="d-none d-md-flex justify-content-between">
