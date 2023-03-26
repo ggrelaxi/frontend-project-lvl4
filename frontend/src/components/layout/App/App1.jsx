@@ -16,7 +16,7 @@ const PrivateOutlet = () => {
     return isLogin ? <Outlet /> : <Navigate to={urls.loginPage()} />;
 };
 
-export const App = () => {
+export const App1 = () => {
     const { logout } = useAuthContext();
 
     const isServerOnline = useCallback(() => {
