@@ -2,13 +2,13 @@ import { useEffect, useCallback } from 'react';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { urls } from '../../../urls';
 import { useAuthContext, useIsUserLoggin } from '../../../hooks/useAuthContext';
-import { Layout } from '../Layout/Layout';
 import { apiClient } from '../../../api/client';
 import { retryTime } from '../../../config';
 import { Chat } from '../../pages/Chat/Chat';
 import { Login } from '../../pages/Login/Login';
 import { Signup } from '../../pages/Signup/Signup';
 import { NotFound } from '../../pages/NotFound/NotFound';
+import { AppLayout } from '../AppLayout/AppLayout';
 
 const PrivateOutlet = () => {
     const isLogin = useIsUserLoggin();
@@ -36,7 +36,7 @@ export const Application = () => {
 
     return (
         <Routes>
-            <Route path={urls.mainPage()} element={<Layout />}>
+            <Route path={urls.mainPage()} element={<AppLayout />}>
                 <Route element={<PrivateOutlet />}>
                     <Route index element={<Chat />} />
                 </Route>
