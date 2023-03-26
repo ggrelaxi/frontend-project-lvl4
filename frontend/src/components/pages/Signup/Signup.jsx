@@ -65,14 +65,14 @@ const Signup = () => {
                                 placeholder={t('signupPage.userNamePlaceholder')}
                                 onChange={handleChange}
                             />
-                            {errors.username ? (
+                            {errors.username && (
                                 <div className="py-2 text-danger">
                                     {t(errors.username.transKey, {
                                         minValue: errors.username.min,
                                         maxValue: errors.username.max,
                                     })}
                                 </div>
-                            ) : null}
+                            )}
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>{t('signupPage.password')}</Form.Label>
@@ -84,11 +84,11 @@ const Signup = () => {
                                 name="password"
                                 onChange={handleChange}
                             />
-                            {errors.password ? (
+                            {errors.password && (
                                 <div className="py-2 text-danger">
                                     {t(errors.password.transKey, { minValue: errors.password.min })}
                                 </div>
-                            ) : null}
+                            )}
                         </Form.Group>
 
                         <Form.Group className="mb-3">

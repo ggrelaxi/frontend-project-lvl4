@@ -53,3 +53,4 @@ rules:
     react/display-name: [0]
     operator-linebreak: [0]
     react/jsx-closing-tag-location: [0]
+    import/no-cycle: [0]

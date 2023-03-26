@@ -24,6 +24,7 @@ export const RemoveChannelModal = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         setIsSubmitButtonDisabled(true);
+
         ChatServices.removeChannel(channelIdToDelete, (error = null) => {
             if (error) {
                 showNotification(t('notifications.removeChannelError', ERROR_NOTIFICATION));

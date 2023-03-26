@@ -28,6 +28,7 @@ export const AddMessageForm = () => {
     const submitHandler = (event) => {
         event.preventDefault();
         const newMessage = { body: wordFilter.clean(message), channelId, username };
+
         ChatServices.newMessage(newMessage, (error = null) => {
             if (error) {
                 showNotification(t('notifications.newMessageError'), ERROR_NOTIFICATION);

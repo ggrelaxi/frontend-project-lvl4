@@ -52,11 +52,11 @@ const Login = () => {
                         onChange={handleChange}
                     />
 
-                    {errors.username ? (
+                    {errors.username && (
                         <div className="py-2 text-danger">
                             {t(errors.username.transKey, { minValue: errors.username.min })}
                         </div>
-                    ) : null}
+                    )}
                 </Form.Group>
                 <Form.Group className="mb-3">
                     <Form.Label>{t('loginPage.password')}</Form.Label>
@@ -68,11 +68,11 @@ const Login = () => {
                         name="password"
                         onChange={handleChange}
                     />
-                    {errors.password ? (
+                    {errors.password && (
                         <div className="py-2 text-danger">
                             {t(errors.password.transKey, { minValue: errors.password.min })}
                         </div>
-                    ) : null}
+                    )}
                 </Form.Group>
 
                 <Button variant="primary" type="submit" disabled={!isValid}>
