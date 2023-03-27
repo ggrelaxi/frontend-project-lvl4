@@ -1,4 +1,4 @@
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Alert } from 'react-bootstrap';
 import { useContext, useState } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +13,8 @@ import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
 
 export const LoginPage = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [isLoginError, setIsLoginError] = useState(false);
+    const [isLoginErrorMessage, setIsLoginErrorMessage] = useState('');
     const { t } = useTranslation();
     const { login } = useContext(AuthContext);
 
@@ -29,9 +31,19 @@ export const LoginPage = () => {
             AuthServices.login(username, password)
                 .then(({ data: { token } }) => {
                     login(token, username);
+                    setIsLoginError(false);
+                    setIsLoginErrorMessage('');
                 })
-                .catch(() => {
-                    showNotification(t('notifications.authError'), ERROR_NOTIFICATION);
+                .catch((e) => {
+                    if (e.response.status === 401) {
+                        showNotification(t('notifications.authError'), ERROR_NOTIFICATION);
+                        setIsLoginErrorMessage(t('notifications.authError'));
+                    } else {
+                        showNotification(t('notifications.serverOffline'), ERROR_NOTIFICATION);
+                        setIsLoginErrorMessage(t('notifications.serverOffline'));
+                    }
+
+                    setIsLoginError(true);
                 })
                 .finally(() => setIsLoading(false));
         },
@@ -74,7 +86,7 @@ export const LoginPage = () => {
                         </div>
                     )}
                 </Form.Group>
-
+                {isLoginError && <Alert variant="danger">{isLoginErrorMessage}</Alert>}
                 <Button variant="primary" type="submit" disabled={!isValid}>
                     {t('loginPage.submitButton')}
                 </Button>
