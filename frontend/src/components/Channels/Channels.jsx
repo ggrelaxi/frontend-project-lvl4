@@ -1,6 +1,5 @@
 import { useRef, memo } from 'react';
 import { ListGroup, Button, Dropdown } from 'react-bootstrap/';
-import { PlusSquare } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { changeCurrentChannel } from '../../store/channelsSlice/slice';
@@ -64,7 +63,9 @@ export const Channels = memo(() => {
                                         <Dropdown.Toggle
                                             className="rounded-0"
                                             variant={`${channel.id === currentChannelId && 'secondary'}`}
-                                        ></Dropdown.Toggle>
+                                        >
+                                            <span className="visually-hidden">Управление каналом</span>
+                                        </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
                                             <Dropdown.Item onClick={openRemoveChannelModal(channel.id)}>
