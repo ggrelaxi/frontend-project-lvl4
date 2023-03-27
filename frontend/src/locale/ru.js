@@ -23,7 +23,7 @@ export const ru = {
         enter: 'Вход',
         userName: 'Ваш ник',
         userNamePlaceholder: 'Ваш ник',
-        password: 'Введите пароль',
+        password: 'Пароль',
         passwordPlaceholder: 'Пароль',
         submitButton: 'Войти',
         noAccount: 'Нет аккаунта?',
