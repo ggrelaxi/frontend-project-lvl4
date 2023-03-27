@@ -5,6 +5,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "npx start-server -p 5100 -s ./frontend/build",
+		"start-front": "serve -s ./frontend/build/",
 		"build": "npm run build --prefix frontend",
 		"postinstall": "cd frontend && npm ci"
 	},
@@ -20,5 +21,8 @@
 	"homepage": "https://github.com/ggrelaxi/frontend-project-lvl4#readme",
 	"dependencies": {
 		"@hexlet/chat-server": "^1.1.6"
+	},
+	"devDependencies": {
+		"npm-run-all": "^4.1.5"
 	}
 }
