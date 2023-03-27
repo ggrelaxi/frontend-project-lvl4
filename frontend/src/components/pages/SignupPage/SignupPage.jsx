@@ -69,10 +69,12 @@ export const SignupPage = () => {
                                 />
                                 {errors.username && (
                                     <div className="py-2 text-danger">
-                                        {t(errors.username.transKey, {
-                                            minValue: errors.username.min,
-                                            maxValue: errors.username.max,
-                                        })}
+                                        {typeof errors.username !== 'string'
+                                            ? t(errors.username.transKey, {
+                                                  minValue: errors.username.min,
+                                                  maxValue: errors.username.max,
+                                              })
+                                            : t(`validation.${errors.username}`)}
                                     </div>
                                 )}
                             </Form.Group>
@@ -88,7 +90,9 @@ export const SignupPage = () => {
                                 />
                                 {errors.password && (
                                     <div className="py-2 text-danger">
-                                        {t(errors.password.transKey, { minValue: errors.password.min })}
+                                        {typeof errors.password !== 'string'
+                                            ? t(errors.password.transKey, { minValue: errors.password.min })
+                                            : t(`validation.${errors.password}`)}
                                     </div>
                                 )}
                             </Form.Group>
@@ -105,7 +109,11 @@ export const SignupPage = () => {
                                 />
                                 {errors.passwordConfirm ? (
                                     <div className="py-2 text-danger">
-                                        {t(errors.passwordConfirm.transKey, { minValue: errors.passwordConfirm.min })}
+                                        {typeof errors.passwordConfirm !== 'string'
+                                            ? t(errors.passwordConfirm.transKey, {
+                                                  minValue: errors.passwordConfirm.min,
+                                              })
+                                            : t(`validation.${errors.passwordConfirm}`)}
                                     </div>
                                 ) : null}
                             </Form.Group>

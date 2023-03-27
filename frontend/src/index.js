@@ -15,18 +15,6 @@ import { Notification } from './components/Notification/Notification';
 import './design/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-setLocale({
-    mixed: {
-        required: () => ({ transKey: 'validation.required' }),
-        oneOf: () => ({ transKey: 'validation.oneOf' }),
-        notOneOf: () => ({ transKey: 'validation.notOneOf' }),
-    },
-    string: {
-        min: ({ min }) => ({ transKey: 'validation.minLength', min }),
-        max: ({ max }) => ({ transKey: 'validation.maxLength', max }),
-    },
-});
-
 const initApp = async () => {
     const i18instance = i18n.createInstance();
 
@@ -42,6 +30,18 @@ const initApp = async () => {
             fallbackLng: 'ru',
         })
         .then(() => {
+            setLocale({
+                mixed: {
+                    required: () => ({ transKey: 'validation.required' }),
+                    oneOf: () => ({ transKey: 'validation.oneOf' }),
+                    notOneOf: () => ({ transKey: 'validation.notOneOf' }),
+                },
+                string: {
+                    min: ({ min }) => ({ transKey: 'validation.minLength', min }),
+                    max: ({ max }) => ({ transKey: 'validation.maxLength', max }),
+                },
+            });
+
             const root = ReactDOM.createRoot(document.getElementById('chat'));
 
             const rollbarConfig = {

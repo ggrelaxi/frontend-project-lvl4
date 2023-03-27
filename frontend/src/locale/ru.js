@@ -74,11 +74,14 @@ export const ru = {
     },
     validation: {
         required: 'Поле обязательно для заполнения',
-        minLength: 'От 3 до 20 символов',
-        maxLength: 'От 3 до 20 символов',
+        minLength: 'Не менее {{ minValue }} символов',
+        maxLength: 'Не более {{ maxValue }} символов',
         channelNameLength: 'От 3 до 20 символов',
         oneOf: 'Пароли должны совпадать',
         notOneOf: 'Такой канал уже существует',
+        passwordMin: 'Не менее 6 символов',
+        min6: 'Не менее 6 символов',
+        min3max20: 'От 3 до 20 символов',
     },
     messages: {
         counter_zero: '{{count}} сообщений',

@@ -19,7 +19,7 @@ plugins:
     - functional
 
 rules:
-    indent: ['error', 4]
+    indent: [0, 4]
     import/extensions: 0
     import/no-unresolved: 0
     comma-dangle: 0
@@ -56,3 +56,6 @@ rules:
     import/no-cycle: [0]
     import/named: [0]
     implicit-arrow-linebreak: [0]
+    no-await-in-loop: [0]
+    functional/no-loop-statement: [0]
+    no-restricted-syntax: [0]
