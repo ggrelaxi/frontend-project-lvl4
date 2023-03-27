@@ -65,7 +65,7 @@ export const ru = {
         newChannelError: 'Ошибка добавления канала',
         renameChannel: 'Канал переименован',
         renameChannelError: 'Ошибка переименовывания канала',
-        removeChannel: 'Канал удален',
+        removeChannel: 'Канал удалён',
         removeChannelError: 'Ошибка удаления канала',
         userAlreadySignup: 'Пользователь с таким ником уже зарегистрирован',
         authError: 'Неверные имя пользователя или пароль',
