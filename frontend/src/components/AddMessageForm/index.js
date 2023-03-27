@@ -1,3 +1,3 @@
-import { AddMessageForm } from './AddMessageForm';
+import AddMessageForm from './AddMessageForm';
 
 export default AddMessageForm;

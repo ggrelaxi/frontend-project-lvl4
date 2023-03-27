@@ -3,14 +3,14 @@ import { Formik } from 'formik';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { RegistrationContainer } from './signup.styled';
-import { signupValidationSchema } from './validation-schema';
+import RegistrationContainer from './signup.styled';
+import signupValidationSchema from './validation-schema';
 import { AuthContext } from '../../../context';
 import { AuthServices } from '../../../api';
-import { Spinner } from '../../common/Spinner/Spinner';
-import { showNotification } from '../../Notification/notification-emmiter';
+import Spinner from '../../common/Spinner/Spinner';
+import showNotification from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
-import { urls } from '../../../urls';
+import urls from '../../../urls';
 
 export const SignupPage = () => {
     const [isLoading, setIsLoading] = useState(false);

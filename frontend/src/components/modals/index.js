@@ -1,3 +1,5 @@
-export { AddChannelModal } from './AddChannelModal/AddChannelModal';
-export { RemoveChannelModal } from './RemoveChannelModal/RemoveChannelModal';
-export { RenameChannelModal } from './RenameChannelModal/RenameChannelModal';
+import AddChannelModal from './AddChannelModal/AddChannelModal';
+import RemoveChannelModal from './RemoveChannelModal/RemoveChannelModal';
+import RenameChannelModal from './RenameChannelModal/RenameChannelModal';
+
+export default { AddChannelModal, RemoveChannelModal, RenameChannelModal };

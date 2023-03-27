@@ -1,3 +1,3 @@
-import { ChannelInfo } from './ChannelInfo';
+import ChannelInfo from './ChannelInfo';
 
 export default ChannelInfo;
