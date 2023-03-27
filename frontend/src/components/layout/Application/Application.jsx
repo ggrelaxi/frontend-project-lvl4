@@ -22,13 +22,13 @@ export const Application = () => {
     const isServerOnline = useCallback(() => {
         apiClient
             .get(urls.getChatData())
-            .then()
+            .then(() => {
+                setTimeout(() => isServerOnline(), retryTime);
+            })
             .catch(() => {
                 logout();
             })
-            .finally(() => {
-                setTimeout(() => isServerOnline(), retryTime);
-            });
+            .finally(() => {});
     }, [logout]);
 
     useEffect(() => {
