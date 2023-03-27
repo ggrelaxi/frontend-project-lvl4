@@ -22,11 +22,12 @@ export const Application = () => {
     const isServerOnline = useCallback(() => {
         apiClient
             .get(urls.getChatData())
-            .then(() => {
-                setTimeout(() => isServerOnline(), retryTime);
-            })
+            .then()
             .catch(() => {
                 logout();
+            })
+            .finally(() => {
+                setTimeout(() => isServerOnline(), retryTime);
             });
     }, [logout]);
 
