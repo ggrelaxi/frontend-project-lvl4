@@ -50,6 +50,7 @@ export const AddMessageForm = () => {
                     placeholder={t('chat.enterMessage')}
                     className="border-0 ps-2 p-0 form-control"
                     autoComplete="off"
+                    aria-label="Новое сообщение"
                 />
                 <button type="submit" className="btn btn-group-vertical">
                     <ArrowRightSquare size={20} />
