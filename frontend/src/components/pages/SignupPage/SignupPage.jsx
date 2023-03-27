@@ -55,8 +55,8 @@ export const SignupPage = () => {
             >
                 {({ values, errors, handleChange, handleSubmit }) => (
                     <form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3 position-relative">
-                            <Form.Label>{t('signupPage.userName')}</Form.Label>
+                        <Form.Group className="mb-3 position-relative" controlId="inputUsername">
+                            <Form.Label htmlFor="inputUsername">{t('signupPage.userName')}</Form.Label>
                             <Form.Control
                                 isInvalid={'username' in errors}
                                 value={values.username}
@@ -74,8 +74,8 @@ export const SignupPage = () => {
                                 </div>
                             )}
                         </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>{t('signupPage.password')}</Form.Label>
+                        <Form.Group className="mb-3" controlId="inputPassword">
+                            <Form.Label htmlForm="inputPassword">{t('signupPage.password')}</Form.Label>
                             <Form.Control
                                 isInvalid={'password' in errors}
                                 value={values.password}
@@ -91,8 +91,8 @@ export const SignupPage = () => {
                             )}
                         </Form.Group>
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>{t('signupPage.passwordConfirm')}</Form.Label>
+                        <Form.Group className="mb-3" controlId="inputConfirm">
+                            <Form.Label htmlFor="inputConfirm">{t('signupPage.passwordConfirm')}</Form.Label>
                             <Form.Control
                                 isInvalid={'passwordConfirm' in errors}
                                 value={values.passwordConfirm}

@@ -31,12 +31,12 @@ export const ru = {
     },
     signupPage: {
         registration: 'Регистрация',
-        userName: 'Логин',
-        userNamePlaceholder: 'Имя пользователя',
+        userName: 'Имя пользователя',
+        userNamePlaceholder: 'Введите ваш ник',
         password: 'Пароль',
         passwordPlaceholder: 'Введите пароль',
-        passwordConfirm: 'Пароль еще раз',
-        passwordConfirmPlaceholder: 'Подтвердите пароль',
+        passwordConfirm: 'Подтвердите пароль',
+        passwordConfirmPlaceholder: 'Введите пароль еще раз',
         submitButton: 'Зарегистрироваться',
     },
     modals: {

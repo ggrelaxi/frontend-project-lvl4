@@ -41,8 +41,8 @@ export const LoginPage = () => {
         <LoginContainer>
             <h1>{t('loginPage.enter')}</h1>
             <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3 position-relative">
-                    <Form.Label>{t('loginPage.userName')}</Form.Label>
+                <Form.Group className="mb-3 position-relative" controlId="inputUsername">
+                    <Form.Label htmlFor="inputUsername">{t('loginPage.userName')}</Form.Label>
                     <Form.Control
                         isInvalid={'username' in errors}
                         value={values.username}
@@ -58,8 +58,8 @@ export const LoginPage = () => {
                         </div>
                     )}
                 </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>{t('loginPage.password')}</Form.Label>
+                <Form.Group className="mb-3" controlId="inputPassword">
+                    <Form.Label htmlFor="inputPassword">{t('loginPage.password')}</Form.Label>
                     <Form.Control
                         isInvalid={'password' in errors}
                         value={values.password}
