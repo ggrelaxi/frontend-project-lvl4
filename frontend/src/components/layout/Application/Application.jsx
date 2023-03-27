@@ -11,7 +11,7 @@ import apiClient from '../../../api/client';
 import { retryTime } from '../../../config';
 import Chat from '../../pages/Chat/Chat';
 import LoginPage from '../../pages/LoginPage/LoginPage';
-import { SignupPage } from '../../pages/SignupPage/SignupPage';
+import SignupPage from '../../pages/SignupPage/SignupPage';
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import AppLayout from '../AppLayout/AppLayout';
 

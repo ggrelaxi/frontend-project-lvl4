@@ -7,7 +7,7 @@ import { getIsChannelsLoading } from '../../../store/channelsSlice/selectors';
 import { getIsMessagesLoading } from '../../../store/messagesSlice/selectors';
 import Spinner from '../../common/Spinner/Spinner';
 import Channels from '../../Channels';
-import { Messages } from '../../Messages/Messages';
+import Messages from '../../Messages/Messages';
 import AddMessageForm from '../../AddMessageForm';
 import ChannelInfo from '../../ChannelInfo';
 import modals from '../../modals';

@@ -10,7 +10,7 @@ import Application from './components/layout/Application/Application';
 import { AuthContextProvider, ChatApiContextProvider, WordFilterContextProvider } from './context';
 import store from './store/index';
 import ru from './locale/ru';
-import { Notification } from './components/Notification/Notification';
+import Notification from './components/Notification/Notification';
 
 import './design/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
