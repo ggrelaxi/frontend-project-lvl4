@@ -1,15 +1,18 @@
 import axios from 'axios';
 
-export const apiClient = axios.create({
-    headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        Accept: '*/*',
-    },
+const apiClient = axios.create({
+  headers: {
+    'Content-Type': 'application/json; charset=UTF-8',
+    Accept: '*/*',
+  },
 });
 
 apiClient.interceptors.request.use((config) => {
-    const user = JSON.parse(window.localStorage.getItem('user'));
-    if (user) config.headers.Authorization = `Bearer ${user.token}`;
+  const user = JSON.parse(window.localStorage.getItem('user'));
+  // eslint-disable-next-line
+  if (user) config.headers.Authorization = `Bearer ${user.token}`;
 
-    return config;
+  return config;
 });
+
+export default apiClient;

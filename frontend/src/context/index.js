@@ -3,10 +3,10 @@ import { ChatApiContextProvider, ChatApiContext } from './chatApiContext';
 import { WordFilterContext, WordFilterContextProvider } from './wordFilterContext';
 
 export {
-    AuthContextProvider,
-    AuthContext,
-    ChatApiContextProvider,
-    ChatApiContext,
-    WordFilterContextProvider,
-    WordFilterContext,
+  AuthContextProvider,
+  AuthContext,
+  ChatApiContextProvider,
+  ChatApiContext,
+  WordFilterContextProvider,
+  WordFilterContext,
 };

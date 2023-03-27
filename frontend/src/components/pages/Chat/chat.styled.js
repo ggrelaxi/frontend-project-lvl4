@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ChatPageContainer = styled.div`
+const ChatPageContainer = styled.div`
     height: 100%;
 
     form {
@@ -8,3 +8,5 @@ export const ChatPageContainer = styled.div`
         padding-left: 0;
     }
 `;
+
+export default ChatPageContainer;

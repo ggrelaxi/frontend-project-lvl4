@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoginContainer = styled.div`
+const LoginContainer = styled.div`
     max-width: 250px;
     width: 100%;
 
@@ -8,3 +8,5 @@ export const LoginContainer = styled.div`
         width: 100%;
     }
 `;
+
+export default LoginContainer;

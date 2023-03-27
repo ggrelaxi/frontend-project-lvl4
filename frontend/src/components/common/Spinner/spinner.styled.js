@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SpinnerContainer = styled.div`
+const SpinnerContainer = styled.div`
     background: rgba(0, 0, 0, 0.3);
     position: absolute;
     width: 100vw;
@@ -11,3 +11,5 @@ export const SpinnerContainer = styled.div`
     top: 0;
     left: 0;
 `;
+
+export default SpinnerContainer;

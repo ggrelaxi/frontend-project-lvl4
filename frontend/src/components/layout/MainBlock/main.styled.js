@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const MainContainer = styled.main`
+const MainContainer = styled.main`
     width: 100%;
     margin: 0 auto;
     padding: 10px 0;
@@ -10,3 +10,5 @@ export const MainContainer = styled.main`
     overflow: hidden;
     height: 100%;
 `;
+
+export default MainContainer;

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { WordFilterContext } from '../context';
 
-export const useWordFilterContext = () => {
-    return useContext(WordFilterContext);
-};
+const useWordFilterContext = () => useContext(WordFilterContext);
+
+export default useWordFilterContext;

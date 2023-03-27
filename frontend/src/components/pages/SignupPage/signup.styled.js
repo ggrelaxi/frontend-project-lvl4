@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const RegistrationContainer = styled.div`
+const RegistrationContainer = styled.div`
     max-width: 250px;
     width: 100%;
 
@@ -8,3 +8,5 @@ export const RegistrationContainer = styled.div`
         width: 100%;
     }
 `;
+
+export default RegistrationContainer;

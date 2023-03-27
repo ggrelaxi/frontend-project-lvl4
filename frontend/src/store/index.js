@@ -3,12 +3,14 @@ import channelsSlice from './channelsSlice/slice';
 import messagesSlice from './messagesSlice/slice';
 import modalsSlice from './modalSlice/slice';
 
-export const store = configureStore({
-    reducer: {
-        channels: channelsSlice,
-        messages: messagesSlice,
-        modals: modalsSlice,
-    },
-    devTools: true,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
+const store = configureStore({
+  reducer: {
+    channels: channelsSlice,
+    messages: messagesSlice,
+    modals: modalsSlice,
+  },
+  devTools: true,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
+
+export default store;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const NotFoundContainer = styled.div`
+const NotFoundContainer = styled.div`
     .notfound {
         position: absolute;
         left: 50%;
@@ -67,3 +67,5 @@ export const NotFoundContainer = styled.div`
         }
     }
 `;
+
+export default NotFoundContainer;

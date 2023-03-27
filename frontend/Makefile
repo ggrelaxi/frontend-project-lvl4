@@ -9,7 +9,7 @@ publish:
 
 # TODO: добавить линтеры и тесты
 lint:
-	npx eslint .
+	npx eslint . --config ./.eslintrc.yml
 
 test:
 	echo no tests

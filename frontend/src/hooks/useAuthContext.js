@@ -1,12 +1,10 @@
 import { useContext } from 'react';
 import { AuthContext } from '../context/authContext';
 
-export const useAuthContext = () => {
-    return useContext(AuthContext);
-};
+export const useAuthContext = () => useContext(AuthContext);
 
 export const useIsUserLoggin = () => {
-    const { checkIsUserLogin } = useAuthContext();
+  const { checkIsUserLogin } = useAuthContext();
 
-    return checkIsUserLogin();
+  return checkIsUserLogin();
 };

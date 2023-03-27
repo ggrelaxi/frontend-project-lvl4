@@ -1,20 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    activeModal: null,
+  activeModal: null,
 };
 
 const modalSlice = createSlice({
-    name: 'modals',
-    initialState,
-    reducers: {
-        openModal: (state, { payload: { modalTitle } }) => {
+  name: 'modals',
+  initialState,
+  reducers: {
+    openModal: (state, { payload: { modalTitle } }) => {
+      // eslint-disable-next-line
             state.activeModal = modalTitle;
-        },
-        closeModal: (state) => {
-            state.activeModal = null;
-        },
     },
+    closeModal: (state) => {
+      // eslint-disable-next-line
+            state.activeModal = null;
+    },
+  },
 });
 
 export const { openModal, closeModal } = modalSlice.actions;
