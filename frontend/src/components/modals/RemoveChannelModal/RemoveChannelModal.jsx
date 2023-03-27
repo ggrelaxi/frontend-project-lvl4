@@ -47,7 +47,7 @@ export const RemoveChannelModal = () => {
                     <Button variant="secondary" onClick={handleClose}>
                         {t('modals.remove.cancel')}
                     </Button>
-                    <Button variant="primary" type="submit" disabled={isSubmitButtonDisabled}>
+                    <Button variant="danger" type="submit" disabled={isSubmitButtonDisabled}>
                         {t('modals.remove.submit')}
                     </Button>
                 </Modal.Footer>
