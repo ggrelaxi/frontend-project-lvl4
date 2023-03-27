@@ -27,7 +27,7 @@ export const ru = {
         passwordPlaceholder: 'Пароль',
         submitButton: 'Войти',
         noAccount: 'Нет аккаунта?',
-        signup: 'Зарегистрироваться',
+        signup: 'Регистрация',
     },
     signupPage: {
         registration: 'Регистрация',
