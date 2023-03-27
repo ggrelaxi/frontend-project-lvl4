@@ -21,7 +21,7 @@ export const ru = {
     },
     loginPage: {
         enter: 'Вход',
-        userName: 'Введите имя пользователя',
+        userName: 'Ваш ник',
         userNamePlaceholder: 'Ваш ник',
         password: 'Введите пароль',
         passwordPlaceholder: 'Пароль',
