@@ -57,7 +57,9 @@ export const RenameChannelModal = () => {
                     <Modal.Title>{t('modals.rename.header')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="border-none">
-                    <Form.Group>
+                    <Form.Group controlId="renameChannelId">
+                        <Form.Label className="visually-hidden">Имя канала</Form.Label>
+
                         <Form.Control
                             type="text"
                             value={values.channelTitle}
