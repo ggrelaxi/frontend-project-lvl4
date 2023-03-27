@@ -53,7 +53,8 @@ export const AddChannelModal = () => {
                     <Modal.Title>{t('modals.add.header')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="border-none">
-                    <Form.Group>
+                    <Form.Group controlId="newChannelId">
+                        <Form.Label className="visually-hidden">Имя канала</Form.Label>
                         <Form.Control
                             type="text"
                             value={values.channelTitle}
