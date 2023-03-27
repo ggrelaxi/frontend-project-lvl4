@@ -37,7 +37,7 @@ export const Channels = memo(() => {
             <div className="p-4 px-2 d-flex justify-content-between">
                 <div className="fw-bold">{t('chat.channels')}</div>
                 <Button className="p-0 text-primary btn btn-group-vertical" onClick={addChannelHandler}>
-                    <PlusSquare fill="white" color="blue" size={20} />
+                    <span className="text-white px-2">+</span>
                 </Button>
             </div>
 
