@@ -55,3 +55,4 @@ rules:
     react/jsx-closing-tag-location: [0]
     import/no-cycle: [0]
     import/named: [0]
+    implicit-arrow-linebreak: [0]

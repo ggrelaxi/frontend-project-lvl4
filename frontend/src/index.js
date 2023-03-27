@@ -15,8 +15,23 @@ import { Notification } from './components/Notification/Notification';
 import './design/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+setLocale({
+    mixed: {
+        required: () => ({ transKey: 'validation.required' }),
+        oneOf: () => ({ transKey: 'validation.oneOf' }),
+        notOneOf: () => ({ transKey: 'validation.notOneOf' }),
+    },
+    string: {
+        min: ({ min }) => ({ transKey: 'validation.minLength', min }),
+        max: ({ max }) => ({ transKey: 'validation.maxLength', max }),
+    },
+});
+
 const initApp = async () => {
-    i18n.use(initReactI18next)
+    const i18instance = i18n.createInstance();
+
+    i18instance
+        .use(initReactI18next)
         .init({
             resources: {
                 ru: {
@@ -27,30 +42,18 @@ const initApp = async () => {
             fallbackLng: 'ru',
         })
         .then(() => {
-            setLocale({
-                mixed: {
-                    required: () => ({ transKey: 'validation.required' }),
-                    oneOf: () => ({ transKey: 'validation.oneOf' }),
-                    notOneOf: () => ({ transKey: 'validation.notOneOf' }),
-                },
-                string: {
-                    min: ({ min }) => ({ transKey: 'validation.minLength', min }),
-                    max: ({ max }) => ({ transKey: 'validation.maxLength', max }),
-                },
-            });
-
             const root = ReactDOM.createRoot(document.getElementById('chat'));
 
             const rollbarConfig = {
                 accessToken: '6a6b26e957504f2b9716468e8544172a',
                 environment: 'testenv',
             };
-
+            console.log(i18instance);
             root.render(
                 <RollbarProvider config={rollbarConfig}>
                     <ErrorBoundary>
                         <Provider store={store}>
-                            <I18nextProvider i18n={i18n}>
+                            <I18nextProvider i18n={i18instance}>
                                 <ChatApiContextProvider>
                                     <BrowserRouter>
                                         <WordFilterContextProvider>

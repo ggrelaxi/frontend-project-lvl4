@@ -53,71 +53,74 @@ export const SignupPage = () => {
                 validateOnChange={!isFirstSubmit}
                 validateOnBlur={!isFirstSubmit}
             >
-                {({ values, errors, handleChange, handleSubmit }) => (
-                    <form onSubmit={handleSubmit}>
-                        <Form.Group className="mb-3 position-relative" controlId="inputUsername">
-                            <Form.Label htmlFor="inputUsername">{t('signupPage.userName')}</Form.Label>
-                            <Form.Control
-                                isInvalid={'username' in errors}
-                                value={values.username}
-                                type="text"
-                                name="username"
-                                placeholder={t('signupPage.userNamePlaceholder')}
-                                onChange={handleChange}
-                            />
-                            {errors.username && (
-                                <div className="py-2 text-danger">
-                                    {t(errors.username.transKey, {
-                                        minValue: errors.username.min,
-                                        maxValue: errors.username.max,
-                                    })}
-                                </div>
-                            )}
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="inputPassword">
-                            <Form.Label htmlForm="inputPassword">{t('signupPage.password')}</Form.Label>
-                            <Form.Control
-                                isInvalid={'password' in errors}
-                                value={values.password}
-                                type="password"
-                                placeholder={t('signupPage.passwordPlaceholder')}
-                                name="password"
-                                onChange={handleChange}
-                            />
-                            {errors.password && (
-                                <div className="py-2 text-danger">
-                                    {t(errors.password.transKey, { minValue: errors.password.min })}
-                                </div>
-                            )}
-                        </Form.Group>
+                {({ values, errors, handleChange, handleSubmit }) => {
+                    console.log(errors);
+                    return (
+                        <form onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3 position-relative" controlId="inputUsername">
+                                <Form.Label>{t('signupPage.userName')}</Form.Label>
+                                <Form.Control
+                                    isInvalid={'username' in errors}
+                                    value={values.username}
+                                    type="text"
+                                    name="username"
+                                    placeholder={t('signupPage.userNamePlaceholder')}
+                                    onChange={handleChange}
+                                />
+                                {errors.username && (
+                                    <div className="py-2 text-danger">
+                                        {t(errors.username.transKey, {
+                                            minValue: errors.username.min,
+                                            maxValue: errors.username.max,
+                                        })}
+                                    </div>
+                                )}
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="inputPassword">
+                                <Form.Label>{t('signupPage.password')}</Form.Label>
+                                <Form.Control
+                                    isInvalid={'password' in errors}
+                                    value={values.password}
+                                    type="password"
+                                    placeholder={t('signupPage.passwordPlaceholder')}
+                                    name="password"
+                                    onChange={handleChange}
+                                />
+                                {errors.password && (
+                                    <div className="py-2 text-danger">
+                                        {t(errors.password.transKey, { minValue: errors.password.min })}
+                                    </div>
+                                )}
+                            </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="inputConfirm">
-                            <Form.Label htmlFor="inputConfirm">{t('signupPage.passwordConfirm')}</Form.Label>
-                            <Form.Control
-                                isInvalid={'passwordConfirm' in errors}
-                                value={values.passwordConfirm}
-                                type="password"
-                                placeholder={t('signupPage.passwordConfirmPlaceholder')}
-                                name="passwordConfirm"
-                                onChange={handleChange}
-                            />
-                            {errors.passwordConfirm ? (
-                                <div className="py-2 text-danger">
-                                    {t(errors.passwordConfirm.transKey, { minValue: errors.passwordConfirm.min })}
-                                </div>
-                            ) : null}
-                        </Form.Group>
+                            <Form.Group className="mb-3" controlId="inputConfirm">
+                                <Form.Label>{t('signupPage.passwordConfirm')}</Form.Label>
+                                <Form.Control
+                                    isInvalid={'passwordConfirm' in errors}
+                                    value={values.passwordConfirm}
+                                    type="password"
+                                    placeholder={t('signupPage.passwordConfirmPlaceholder')}
+                                    name="passwordConfirm"
+                                    onChange={handleChange}
+                                />
+                                {errors.passwordConfirm ? (
+                                    <div className="py-2 text-danger">
+                                        {t(errors.passwordConfirm.transKey, { minValue: errors.passwordConfirm.min })}
+                                    </div>
+                                ) : null}
+                            </Form.Group>
 
-                        <Button
-                            variant="primary"
-                            type="submit"
-                            onClick={() => setIsFirstSubmit(false)}
-                            disabled={isLoading}
-                        >
-                            {t('signupPage.submitButton')}
-                        </Button>
-                    </form>
-                )}
+                            <Button
+                                variant="primary"
+                                type="submit"
+                                onClick={() => setIsFirstSubmit(false)}
+                                disabled={isLoading}
+                            >
+                                {t('signupPage.submitButton')}
+                            </Button>
+                        </form>
+                    );
+                }}
             </Formik>
             {isLoading && <Spinner />}
         </RegistrationContainer>
