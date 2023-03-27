@@ -22,17 +22,18 @@ export const Application = () => {
     const isServerOnline = useCallback(() => {
         apiClient
             .get(urls.getChatData())
-            .then()
+            .then(() => {
+                setTimeout(() => isServerOnline(), retryTime);
+            })
             .catch(() => {
                 logout();
             });
-
-        setTimeout(() => isServerOnline(), retryTime);
     }, [logout]);
 
     useEffect(() => {
         isServerOnline();
-    }, [isServerOnline]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <Routes>
