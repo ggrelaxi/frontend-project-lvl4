@@ -34,6 +34,7 @@ const Application = () => {
         logout();
       })
       .finally(() => {});
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
