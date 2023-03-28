@@ -98,6 +98,7 @@ const LoginPage = () => {
       </Form>
       <div className="mt-5">
         {t('loginPage.noAccount')}
+        &nbsp;
         <Link to="/signup">{t('loginPage.signup')}</Link>
       </div>
       {isLoading && <Spinner />}
