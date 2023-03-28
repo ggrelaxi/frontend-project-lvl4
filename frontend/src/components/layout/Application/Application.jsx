@@ -34,7 +34,7 @@ const Application = () => {
         logout();
       })
       .finally(() => {});
-  }, [logout]);
+  }, []);
 
   useEffect(() => {
     isServerOnline();
