@@ -48,7 +48,6 @@ const initApp = async () => {
         accessToken: '6a6b26e957504f2b9716468e8544172a',
         environment: 'testenv',
       };
-      console.log(i18instance);
       root.render(
         <RollbarProvider config={rollbarConfig}>
           <ErrorBoundary>

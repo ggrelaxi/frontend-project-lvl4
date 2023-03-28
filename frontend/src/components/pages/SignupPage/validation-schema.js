@@ -19,9 +19,8 @@ Yup.addMethod(Yup.string, 'sequence', function f(funcList) {
 const signupValidationSchema = () => Yup.object().shape({
   username: Yup.string().min(3, 'min3max20').max(20, 'min3max20').required(),
   password: Yup.string().min(6).required(),
-  passwordConfirm: Yup.string().sequence([
+  passwordConfirm: Yup.string().oneOf([Yup.ref('password'), null]).sequence([
     () => Yup.string().required(),
-    () => Yup.string().oneOf([Yup.ref('password')]),
     () => Yup.string().min(6),
   ]),
 });
