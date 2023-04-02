@@ -12,12 +12,8 @@ export const getChannelsName = ({ channels }) => channels.ids.map(
 
 export const getCurrentChannelId = (state) => state.channels.currentChannelId;
 
-export const getChannelIdToDelete = (state) => state.channels.channelIdToDelete;
-
-export const getChannelIdToRename = (state) => state.channels.channelIdToRename;
-
 export const getRenamedChannelName = (state) => {
-  const { channelIdToRename } = state.channels;
+  const { channelIdToRename } = state.modals;
   return state.channels.entities[channelIdToRename].name;
 };
 

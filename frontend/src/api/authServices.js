@@ -16,10 +16,6 @@ class AuthServices {
       password,
     });
   }
-
-  static async getChatData() {
-    return apiClient.get(urls.getChatData());
-  }
 }
 
 export default AuthServices;

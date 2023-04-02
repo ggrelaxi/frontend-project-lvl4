@@ -1,10 +1,27 @@
 import { io } from 'socket.io-client';
 import showNotification from '../components/Notification/notification-emmiter';
 import { SUCCESS_NOTIFICATION } from '../components/Notification/notification-type';
+import { addChannels, setIsLoading } from '../store/channelsSlice/slice';
+import { addMessages } from '../store/messagesSlice/slice';
+import urls from '../urls';
+import apiClient from './client';
 
 // eslint-disable-next-line
 export class ChatServices {
   static socket = io();
+
+  static getChatData() {
+    return async (dispatch) => {
+      dispatch(setIsLoading(true));
+      return apiClient.get(urls.getChatData())
+        .then((response) => {
+          const { channels, currentChannelId, messages } = response.data;
+          dispatch(addChannels({ channels, currentChannelId }));
+          dispatch(addMessages({ messages }));
+        })
+        .finally(() => dispatch(setIsLoading(false)));
+    };
+  }
 
   static async newMessage(message, cb) {
     // eslint-disable-next-line

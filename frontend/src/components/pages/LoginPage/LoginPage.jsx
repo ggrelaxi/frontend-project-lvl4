@@ -10,6 +10,7 @@ import { AuthServices } from '../../../api';
 import Spinner from '../../common/Spinner/Spinner';
 import showNotification from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
+import urls from '../../../urls';
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -99,7 +100,7 @@ const LoginPage = () => {
       <div className="mt-5">
         {t('loginPage.noAccount')}
         &nbsp;
-        <Link to="/signup">{t('loginPage.signup')}</Link>
+        <Link to={urls.signUpPage()}>{t('loginPage.signup')}</Link>
       </div>
       {isLoading && <Spinner />}
     </LoginContainer>
