@@ -1,4 +1,5 @@
 import axios from 'axios';
+import urls from '../urls';
 
 const apiClient = axios.create({
   headers: {
@@ -9,8 +10,9 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use((config) => {
   const user = JSON.parse(window.localStorage.getItem('user'));
+  const openedEndpoints = [urls.login(), urls.signup()];
   // eslint-disable-next-line
-  if (user) config.headers.Authorization = `Bearer ${user.token}`;
+  if (user && !openedEndpoints.includes(config.url)) config.headers.Authorization = `Bearer ${user.token}`;
 
   return config;
 });
