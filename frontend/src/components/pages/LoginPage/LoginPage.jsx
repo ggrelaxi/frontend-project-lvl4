@@ -43,7 +43,6 @@ const LoginPage = () => {
         })
         .catch((e) => {
           if (e.response.status === 401) {
-            showNotification(t('notifications.authError'), ERROR_NOTIFICATION);
             setIsLoginErrorMessage(t('notifications.authError'));
           } else {
             showNotification(t('notifications.serverOffline'), ERROR_NOTIFICATION);
