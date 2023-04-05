@@ -10,8 +10,9 @@ import { closeModal } from '../../../store/modalSlice/slice';
 import buildValidationSchema from '../validation-schema';
 import { ChatServices } from '../../../api';
 import showNotification from '../../Notification/notification-emmiter';
-import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
+import { ERROR_NOTIFICATION, SUCCESS_NOTIFICATION } from '../../Notification/notification-type';
 import useWordFilterContext from '../../../hooks/useWordFilterContext';
+import { addChannel, changeCurrentChannel } from '../../../store/channelsSlice/slice';
 
 const AddChannelModal = () => {
   const activeModal = useSelector(getActiveModal);
@@ -35,11 +36,14 @@ const AddChannelModal = () => {
     validationSchema: buildValidationSchema(createdChannels),
     onSubmit: ({ channelTitle }) => {
       setIsAddChannelModalDisabled(true);
-
-      ChatServices.newChannel({ name: wordFilter.clean(channelTitle) }, (error = null) => {
+      // eslint-disable-next-line
+      ChatServices.newChannel({ name: wordFilter.clean(channelTitle) }, (error = null, res = null) => {
         if (error) {
           showNotification(t('notifications.newChannelError'), ERROR_NOTIFICATION);
-        } else {
+        } else if (res) {
+          dispatch(addChannel(res));
+          dispatch(changeCurrentChannel({ channelId: res.id }));
+          showNotification(t('notifications.newChannel'), SUCCESS_NOTIFICATION);
           dispatch(closeModal());
         }
       });

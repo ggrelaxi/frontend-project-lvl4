@@ -14,16 +14,13 @@ import urls from '../../../urls';
 
 const SignupPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isFirstSubmit, setIsFirstSubmit] = useState(true);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
   const onSubmitHandler = (formValues) => {
     setIsLoading(true);
-    setIsFirstSubmit(false);
     const { username, password } = formValues;
-
     AuthServices.signup(username, password)
       .then(({ data: token }) => {
         login(token, username);
@@ -50,8 +47,6 @@ const SignupPage = () => {
         }}
         validationSchema={signupValidationSchema}
         onSubmit={onSubmitHandler}
-        validateOnChange={!isFirstSubmit}
-        validateOnBlur={!isFirstSubmit}
       >
         {({
           values,
@@ -124,7 +119,6 @@ const SignupPage = () => {
             <Button
               variant="primary"
               type="submit"
-              onClick={() => setIsFirstSubmit(false)}
               disabled={isLoading}
             >
               {t('signupPage.submitButton')}

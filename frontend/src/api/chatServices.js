@@ -38,7 +38,7 @@ export class ChatServices {
     // eslint-disable-next-line
     this.socket.emit('newChannel', channel, (response) => {
       if (response.status === 'ok') {
-        cb();
+        cb(null, response.data);
       } else {
         cb(new Error());
       }
@@ -74,10 +74,9 @@ export class ChatServices {
     });
 
     // eslint-disable-next-line
-    this.socket.on('newChannel', (response) => {
-      dispatch(actions.addChannelAction(response));
-      dispatch(actions.changeCurrentChannelAction({ channelId: response.id }));
-      showNotification(translator('notifications.newChannel'), SUCCESS_NOTIFICATION);
+    this.socket.on('newChannel', () => {
+    // eslint-disable-next-line
+      dispatch(this.getChatData());
     });
 
     // eslint-disable-next-line

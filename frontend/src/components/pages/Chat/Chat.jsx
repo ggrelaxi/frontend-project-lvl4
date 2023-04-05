@@ -11,16 +11,18 @@ import AddMessageForm from '../../AddMessageForm';
 import ChannelInfo from '../../ChannelInfo';
 import Modals from '../../modals';
 import { ChatServices } from '../../../api';
+import { useAuthContext } from '../../../hooks/useAuthContext';
 
 const Chat = () => {
   const dispatch = useDispatch();
+  const { getAuthRequestHeader } = useAuthContext();
   const isChannelsLoading = useSelector(getIsChannelsLoading);
   const isMessagesLoading = useSelector(getIsMessagesLoading);
   const isDataFetching = isChannelsLoading && isMessagesLoading;
 
   useEffect(() => {
-    dispatch(ChatServices.getChatData());
-  }, [dispatch]);
+    dispatch(ChatServices.getChatData(getAuthRequestHeader));
+  }, [dispatch, getAuthRequestHeader]);
 
   return (
     <>

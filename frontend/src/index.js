@@ -11,7 +11,6 @@ import { AuthContextProvider, ChatApiContextProvider, WordFilterContextProvider 
 import store from './store/index';
 import ru from './locale/ru';
 import Notification from './components/Notification/Notification';
-import { RollBackToken } from './config';
 
 import './design/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -46,7 +45,7 @@ const initApp = async () => {
       const root = ReactDOM.createRoot(document.getElementById('chat'));
 
       const rollbarConfig = {
-        accessToken: RollBackToken,
+        accessToken: process.env.ROLLBAR_TOKEN,
         environment: 'testenv',
       };
       root.render(
