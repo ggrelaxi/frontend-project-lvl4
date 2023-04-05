@@ -4,7 +4,7 @@ import * as filter from 'leo-profanity';
 export const WordFilterContext = createContext();
 
 export const WordFilterContextProvider = ({ children }) => {
-  filter.loadDictionary('ru');
+  filter.loadDictionary('en');
 
   const contextValue = useMemo(() => ({ wordFilter: filter }), []);
 
