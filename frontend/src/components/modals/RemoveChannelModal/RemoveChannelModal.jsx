@@ -26,11 +26,10 @@ const RemoveChannelModal = () => {
     setIsSubmitButtonDisabled(true);
     try {
       await api.removeChannel({ id: channelIdToDelete });
-      showNotification(t('notifications.removeChannel', SUCCESS_NOTIFICATION));
+      showNotification(t('notifications.removeChannel'), SUCCESS_NOTIFICATION);
     } catch (error) {
       dispatch(closeModal());
-      showNotification(t('notifications.removeChannelError', ERROR_NOTIFICATION));
-
+      showNotification(t('notifications.removeChannelError'), ERROR_NOTIFICATION);
     }
   };
 
