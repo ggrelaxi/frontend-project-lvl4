@@ -6,7 +6,7 @@ import { getActiveModal, getChannelIdToDelete } from '../../../store/modalSlice/
 import { REMOVE_CHANNEL_MODAL } from '../../../store/modalSlice/constants';
 import { closeModal } from '../../../store/modalSlice/slice';
 import showNotification from '../../Notification/notification-emmiter';
-import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
+import { ERROR_NOTIFICATION, SUCCESS_NOTIFICATION } from '../../Notification/notification-type';
 import useChatApiContext from '../../../hooks/useChatApiContext';
 
 const RemoveChannelModal = () => {
@@ -26,9 +26,11 @@ const RemoveChannelModal = () => {
     setIsSubmitButtonDisabled(true);
     try {
       await api.removeChannel({ id: channelIdToDelete });
-      showNotification(t('notifications.removeChannelError', ERROR_NOTIFICATION));
+      showNotification(t('notifications.removeChannel', SUCCESS_NOTIFICATION));
     } catch (error) {
       dispatch(closeModal());
+      showNotification(t('notifications.removeChannelError', ERROR_NOTIFICATION));
+
     }
   };
 

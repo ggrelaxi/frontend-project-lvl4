@@ -41,7 +41,7 @@ const LoginPage = () => {
         setIsLoginErrorMessage('');
         navigate(urls.mainPage());
       }).catch((e) => {
-        if (e.response.status === 401) {
+        if (e?.response?.status === 401) {
           setIsLoginErrorMessage(t('notifications.authError'));
         } else {
           showNotification(t('notifications.serverOffline'), ERROR_NOTIFICATION);
