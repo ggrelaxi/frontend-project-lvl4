@@ -27,8 +27,8 @@ const RemoveChannelModal = () => {
     try {
       await api.removeChannel({ id: channelIdToDelete });
       showNotification(t('notifications.removeChannel'), SUCCESS_NOTIFICATION);
-    } catch (error) {
       dispatch(closeModal());
+    } catch (error) {
       showNotification(t('notifications.removeChannelError'), ERROR_NOTIFICATION);
     }
   };
