@@ -8,16 +8,16 @@ import {
 } from 'react-bootstrap';
 import HeaderContainer from './header.styled';
 import Logo from '../../../assets/icons/logo.svg';
-import { useAuthContext } from '../../../hooks/useAuthContext';
+import useAuthContext from '../../../hooks/useAuthContext';
 import urls from '../../../urls';
 
 const HeaderBlock = () => {
-  const { logout, user } = useAuthContext();
+  const { logOut, user } = useAuthContext();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const logoutHandler = () => {
-    logout();
+    logOut();
     navigate(urls.loginPage());
   };
 

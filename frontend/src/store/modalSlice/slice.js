@@ -15,9 +15,9 @@ const modalSlice = createSlice({
       state.activeModal = payload.modalTitle;
       const { channelIdToDelete, channelIdToRename } = payload;
       // eslint-disable-next-line
-      if (channelIdToDelete) state.channelIdToDelete = channelIdToDelete;
+      state.channelIdToDelete = channelIdToDelete;
       // eslint-disable-next-line
-      if (channelIdToRename) state.channelIdToRename = channelIdToRename;
+      state.channelIdToRename = channelIdToRename;
     },
     closeModal: (state) => {
       // eslint-disable-next-line

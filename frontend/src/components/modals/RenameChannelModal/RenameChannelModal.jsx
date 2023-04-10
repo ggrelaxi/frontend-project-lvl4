@@ -8,10 +8,10 @@ import { getRenamedChannelName, getChannelsName } from '../../../store/channelsS
 import { RENAME_CHANNEL_MODAL } from '../../../store/modalSlice/constants';
 import { closeModal } from '../../../store/modalSlice/slice';
 import buildValidationSchema from '../validation-schema';
-import { ChatServices } from '../../../api';
 import showNotification from '../../Notification/notification-emmiter';
-import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
+import { ERROR_NOTIFICATION, SUCCESS_NOTIFICATION } from '../../Notification/notification-type';
 import useWordFilterContext from '../../../hooks/useWordFilterContext';
+import useChatApiContext from '../../../hooks/useChatApiContext';
 
 const RenameChannelModal = () => {
   const activeModal = useSelector(getActiveModal);
@@ -22,6 +22,7 @@ const RenameChannelModal = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { wordFilter } = useWordFilterContext();
+  const api = useChatApiContext();
 
   const {
     values,
@@ -35,18 +36,17 @@ const RenameChannelModal = () => {
       channelTitle: channelName,
     },
     validationSchema: buildValidationSchema(createdChannelsName),
-    onSubmit: ({ channelTitle }) => {
+    onSubmit: async ({ channelTitle }) => {
       setIsRemoveChannelModalDisabled(true);
 
-      ChatServices.renameChannel(
-        { name: wordFilter.clean(channelTitle), id: channelIdToRename },
-        (error = null) => {
-          if (error) {
-            showNotification(t('notifications.renameChannelError'), ERROR_NOTIFICATION);
-          }
-          dispatch(closeModal());
-        },
-      );
+      try {
+        await api.renameChannel({ name: wordFilter.clean(channelTitle), id: channelIdToRename });
+        showNotification(t('notifications.renameChannel'), SUCCESS_NOTIFICATION);
+
+        dispatch(closeModal());
+      } catch (error) {
+        showNotification(t('notifications.renameChannelError'), ERROR_NOTIFICATION);
+      }
     },
   });
 

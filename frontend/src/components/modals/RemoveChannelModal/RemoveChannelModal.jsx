@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { getActiveModal, getChannelIdToDelete } from '../../../store/modalSlice/selectors';
 import { REMOVE_CHANNEL_MODAL } from '../../../store/modalSlice/constants';
-import { ChatServices } from '../../../api';
 import { closeModal } from '../../../store/modalSlice/slice';
 import showNotification from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
+import useChatApiContext from '../../../hooks/useChatApiContext';
 
 const RemoveChannelModal = () => {
   const activeModal = useSelector(getActiveModal);
@@ -15,22 +15,21 @@ const RemoveChannelModal = () => {
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const api = useChatApiContext();
 
   const handleClose = () => {
     dispatch(closeModal());
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitButtonDisabled(true);
-
-    ChatServices.removeChannel(channelIdToDelete, (error = null) => {
-      if (error) {
-        showNotification(t('notifications.removeChannelError', ERROR_NOTIFICATION));
-      } else {
-        dispatch(closeModal());
-      }
-    });
+    try {
+      await api.removeChannel({ id: channelIdToDelete });
+      showNotification(t('notifications.removeChannelError', ERROR_NOTIFICATION));
+    } catch (error) {
+      dispatch(closeModal());
+    }
   };
 
   const isModalOpen = activeModal === REMOVE_CHANNEL_MODAL;

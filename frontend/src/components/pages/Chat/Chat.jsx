@@ -1,28 +1,50 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import Col from 'react-bootstrap/Col';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import ChatPageContainer from './chat.styled';
-import { getIsChannelsLoading } from '../../../store/channelsSlice/selectors';
-import { getIsMessagesLoading } from '../../../store/messagesSlice/selectors';
-import Spinner from '../../common/Spinner/Spinner';
 import Channels from '../../Channels';
 import Messages from '../../Messages/Messages';
 import AddMessageForm from '../../AddMessageForm';
 import ChannelInfo from '../../ChannelInfo';
 import Modals from '../../modals';
-import { ChatServices } from '../../../api';
-import { useAuthContext } from '../../../hooks/useAuthContext';
+import urls from '../../../urls/index';
+import useAuthContext from '../../../hooks/useAuthContext';
+import { addChannels } from '../../../store/channelsSlice/slice';
+import { addMessages } from '../../../store/messagesSlice/slice';
+import showNotification from '../../Notification/notification-emmiter';
+import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
 
 const Chat = () => {
   const dispatch = useDispatch();
-  const { getAuthRequestHeader } = useAuthContext();
-  const isChannelsLoading = useSelector(getIsChannelsLoading);
-  const isMessagesLoading = useSelector(getIsMessagesLoading);
-  const isDataFetching = isChannelsLoading && isMessagesLoading;
-
+  const auth = useAuthContext();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   useEffect(() => {
-    dispatch(ChatServices.getChatData(getAuthRequestHeader));
-  }, [dispatch, getAuthRequestHeader]);
+    const getChatData = async () => {
+      try {
+        const res = await axios.get(urls.getChatData(), { headers: auth.getAuthHeader() });
+        const { channels, currentChannelId, messages } = res.data;
+        dispatch(addChannels({ channels, currentChannelId }));
+        dispatch(addMessages({ messages }));
+      } catch (err) {
+        if (!err.isAxiosError) {
+          showNotification(t('errors.commonError'), ERROR_NOTIFICATION);
+          return;
+        }
+
+        if (err.response?.status === 401) {
+          navigate(urls.loginPage());
+        } else {
+          showNotification(t('errors.commonError'), ERROR_NOTIFICATION);
+        }
+      }
+    };
+
+    getChatData();
+  }, [auth, dispatch, navigate, t]);
 
   return (
     <>
@@ -38,7 +60,6 @@ const Chat = () => {
           <AddMessageForm />
         </Col>
       </ChatPageContainer>
-      {isDataFetching && <Spinner />}
       <Modals />
     </>
   );

@@ -1,6 +1,9 @@
 import { useContext } from 'react';
 import { ChatApiContext } from '../context';
 
-const useChatApiContext = () => useContext(ChatApiContext);
+const useChatApiContext = () => {
+  const context = useContext(ChatApiContext);
+  return context;
+};
 
 export default useChatApiContext;

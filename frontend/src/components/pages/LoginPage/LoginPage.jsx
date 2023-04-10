@@ -1,24 +1,22 @@
 import { Button, Form, Alert } from 'react-bootstrap';
+import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LoginContainer from './login.styled';
 import loginValidationSchema from './validation-schema';
 import { AuthContext } from '../../../context';
-import { AuthServices } from '../../../api';
-import Spinner from '../../common/Spinner/Spinner';
 import showNotification from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
 import urls from '../../../urls';
 
 const LoginPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const [isLoginError, setIsLoginError] = useState(false);
   const [isLoginErrorMessage, setIsLoginErrorMessage] = useState('');
   const { t } = useTranslation();
-  const { login } = useContext(AuthContext);
-
+  const navigate = useNavigate();
+  const { logIn } = useContext(AuthContext);
   const {
     values,
     handleSubmit,
@@ -31,26 +29,26 @@ const LoginPage = () => {
       password: '',
     },
     validationSchema: loginValidationSchema,
-    onSubmit: (formValues) => {
-      setIsLoading(true);
+    onSubmit: async (formValues) => {
       const { username, password } = formValues;
 
-      AuthServices.login(username, password)
-        .then(({ data: { token } }) => {
-          login(token, username);
-          setIsLoginError(false);
-          setIsLoginErrorMessage('');
-        })
-        .catch((e) => {
-          if (e.response.status === 401) {
-            setIsLoginErrorMessage(t('notifications.authError'));
-          } else {
-            showNotification(t('notifications.serverOffline'), ERROR_NOTIFICATION);
-            setIsLoginErrorMessage(t('notifications.serverOffline'));
-          }
-          setIsLoginError(true);
-        })
-        .finally(() => setIsLoading(false));
+      axios.post(urls.login(), {
+        username,
+        password,
+      }).then(({ data: { token } }) => {
+        logIn({ token, username });
+        setIsLoginError(false);
+        setIsLoginErrorMessage('');
+        navigate(urls.mainPage());
+      }).catch((e) => {
+        if (e.response.status === 401) {
+          setIsLoginErrorMessage(t('notifications.authError'));
+        } else {
+          showNotification(t('notifications.serverOffline'), ERROR_NOTIFICATION);
+          setIsLoginErrorMessage(t('notifications.serverOffline'));
+        }
+        setIsLoginError(true);
+      });
     },
   });
 
@@ -101,7 +99,6 @@ const LoginPage = () => {
         &nbsp;
         <Link to={urls.signUpPage()}>{t('loginPage.signup')}</Link>
       </div>
-      {isLoading && <Spinner />}
     </LoginContainer>
   );
 };

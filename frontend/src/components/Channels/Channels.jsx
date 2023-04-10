@@ -12,7 +12,6 @@ const Channels = memo(() => {
   const { t } = useTranslation();
   const currentChannelId = useSelector(getCurrentChannelId);
   const channels = useSelector(getChannels);
-
   const dispatch = useDispatch();
   const channelsListRef = useRef(null);
 

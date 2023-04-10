@@ -5,17 +5,17 @@ import {
   Routes,
 } from 'react-router-dom';
 import urls from '../../../urls';
-import { useIsUserLoggin } from '../../../hooks/useAuthContext';
 import Chat from '../../pages/Chat/Chat';
 import LoginPage from '../../pages/LoginPage/LoginPage';
 import SignupPage from '../../pages/SignupPage/SignupPage';
 import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import AppLayout from '../AppLayout/AppLayout';
+import useAuthContext from '../../../hooks/useAuthContext';
 
 const PrivateOutlet = () => {
-  const isLogin = useIsUserLoggin();
+  const auth = useAuthContext();
 
-  return isLogin ? <Outlet /> : <Navigate to={urls.loginPage()} />;
+  return auth.user ? <Outlet /> : <Navigate to={urls.loginPage()} />;
 };
 
 const Application = () => (

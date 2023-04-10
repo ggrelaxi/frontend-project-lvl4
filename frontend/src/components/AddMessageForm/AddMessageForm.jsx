@@ -4,14 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import useWordFilterContext from '../../hooks/useWordFilterContext';
 import { getCurrentChannelId } from '../../store/channelsSlice/selectors';
-import { useAuthContext } from '../../hooks/useAuthContext';
-import { ChatServices } from '../../api';
+import useAuthContext from '../../hooks/useAuthContext';
 import showNotification from '../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../Notification/notification-type';
+import useChatApiContext from '../../hooks/useChatApiContext';
 
 const AddMessageForm = () => {
   const [message, setMessage] = useState('');
-
   const channelId = useSelector(getCurrentChannelId);
 
   const {
@@ -20,23 +19,23 @@ const AddMessageForm = () => {
   const { wordFilter } = useWordFilterContext();
   const { t } = useTranslation();
   const messageInputRef = useRef(null);
+  const api = useChatApiContext();
 
   const inputMessagehandler = (event) => {
     setMessage(event.target.value);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     const newMessage = { body: wordFilter.clean(message), channelId, username };
 
-    ChatServices.newMessage(newMessage, (error = null) => {
-      if (error) {
-        showNotification(t('notifications.newMessageError'), ERROR_NOTIFICATION);
-      } else {
-        messageInputRef.current.focus();
-        setMessage('');
-      }
-    });
+    try {
+      api.newMessage(newMessage);
+      messageInputRef.current.focus();
+      setMessage('');
+    } catch (e) {
+      showNotification(t('notifications.newMessageError'), ERROR_NOTIFICATION);
+    }
   };
 
   return (

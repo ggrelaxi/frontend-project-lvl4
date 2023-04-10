@@ -1,39 +1,41 @@
 import { Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
-import { useContext, useState } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import RegistrationContainer from './signup.styled';
 import signupValidationSchema from './validation-schema';
-import { AuthContext } from '../../../context';
-import { AuthServices } from '../../../api';
-import Spinner from '../../common/Spinner/Spinner';
 import showNotification from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION } from '../../Notification/notification-type';
 import urls from '../../../urls';
+import useAuthContext from '../../../hooks/useAuthContext';
 
 const SignupPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const auth = useAuthContext();
 
-  const onSubmitHandler = (formValues) => {
-    setIsLoading(true);
+  const onSubmitHandler = async (formValues) => {
     const { username, password } = formValues;
-    AuthServices.signup(username, password)
-      .then(({ data: token }) => {
-        login(token, username);
-        return navigate(urls.mainPage());
-      })
-      .catch((error) => {
-        if (error.response.status === 409) {
-          showNotification(t('notifications.userAlreadySignup'), ERROR_NOTIFICATION);
-        } else {
-          showNotification(t('notifications.commonError'), ERROR_NOTIFICATION);
-        }
-      })
-      .finally(() => setIsLoading(false));
+    setIsLoading(true);
+    try {
+      const response = await axios.post(urls.signup(), { username, password });
+      auth.logIn(response.data);
+      navigate(urls.mainPage());
+    } catch (e) {
+      if (!e.isAxiosError) {
+        throw e;
+      }
+
+      if (e.response.status === 409) {
+        showNotification(t('notifications.userAlreadySignup'), ERROR_NOTIFICATION);
+      }
+
+      showNotification(t('notifications.commonError'), ERROR_NOTIFICATION);
+      throw e;
+    }
   };
 
   return (
@@ -126,7 +128,6 @@ const SignupPage = () => {
           </form>
         )}
       </Formik>
-      {isLoading && <Spinner />}
     </RegistrationContainer>
   );
 };

@@ -8,11 +8,11 @@ import { getChannelsName } from '../../../store/channelsSlice/selectors';
 import { ADD_CHANNEL_MODAL } from '../../../store/modalSlice/constants';
 import { closeModal } from '../../../store/modalSlice/slice';
 import buildValidationSchema from '../validation-schema';
-import { ChatServices } from '../../../api';
 import showNotification from '../../Notification/notification-emmiter';
 import { ERROR_NOTIFICATION, SUCCESS_NOTIFICATION } from '../../Notification/notification-type';
 import useWordFilterContext from '../../../hooks/useWordFilterContext';
-import { addChannel, changeCurrentChannel } from '../../../store/channelsSlice/slice';
+import { changeCurrentChannel } from '../../../store/channelsSlice/slice';
+import useChatApiContext from '../../../hooks/useChatApiContext';
 
 const AddChannelModal = () => {
   const activeModal = useSelector(getActiveModal);
@@ -21,6 +21,7 @@ const AddChannelModal = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { wordFilter } = useWordFilterContext();
+  const api = useChatApiContext();
 
   const {
     values,
@@ -34,19 +35,17 @@ const AddChannelModal = () => {
       channelTitle: '',
     },
     validationSchema: buildValidationSchema(createdChannels),
-    onSubmit: ({ channelTitle }) => {
+    onSubmit: async ({ channelTitle }) => {
       setIsAddChannelModalDisabled(true);
       // eslint-disable-next-line
-      ChatServices.newChannel({ name: wordFilter.clean(channelTitle) }, (error = null, res = null) => {
-        if (error) {
-          showNotification(t('notifications.newChannelError'), ERROR_NOTIFICATION);
-        } else if (res) {
-          dispatch(addChannel(res));
-          dispatch(changeCurrentChannel({ channelId: res.id }));
-          showNotification(t('notifications.newChannel'), SUCCESS_NOTIFICATION);
-          dispatch(closeModal());
-        }
-      });
+      try {
+        const response = await api.newChannel({ name: wordFilter.clean(channelTitle) });
+        dispatch(changeCurrentChannel({ channelId: response.id }));
+        showNotification(t('notifications.newChannel'), SUCCESS_NOTIFICATION);
+        dispatch(closeModal());
+      } catch (e) {
+        showNotification(t('notifications.newChannelError'), ERROR_NOTIFICATION);
+      }
     },
   });
 
