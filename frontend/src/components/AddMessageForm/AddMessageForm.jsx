@@ -30,7 +30,7 @@ const AddMessageForm = () => {
     const newMessage = { body: wordFilter.clean(message), channelId, username };
 
     try {
-      api.newMessage(newMessage);
+      await api.newMessage(newMessage);
       messageInputRef.current.focus();
       setMessage('');
     } catch (e) {
@@ -49,7 +49,7 @@ const AddMessageForm = () => {
           placeholder={t('chat.enterMessage')}
           className="border-0 ps-2 p-0 form-control"
           autoComplete="off"
-          aria-label="Новое сообщение"
+          aria-label={t('common.form.newMessage')}
         />
         <button type="submit" className="btn btn-group-vertical">
           <ArrowRightSquare size={20} />

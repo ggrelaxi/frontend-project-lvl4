@@ -37,6 +37,7 @@ const Chat = () => {
 
         if (err.response?.status === 401) {
           navigate(urls.loginPage());
+          auth.logOut();
         } else {
           showNotification(t('errors.commonError'), ERROR_NOTIFICATION);
         }
