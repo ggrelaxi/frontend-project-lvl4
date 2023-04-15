@@ -9,8 +9,8 @@ const ru = {
       description: 'Финальный проект в профессии "Фронтенд разработчик"',
     },
     form: {
-      newMessage: 'Новое сообщение'
-    }
+      newMessage: 'Новое сообщение',
+    },
   },
   chat: {
     channels: 'Каналы',
